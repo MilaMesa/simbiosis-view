@@ -11,7 +11,7 @@ const Main = () => (
       <Route exact path="/" component={Home} />
       <Route path="/perfiles" component={Perfiles} />
       <Route path="/about" component={About} />
-      <Route path="*" component={NotFound} />
+      <Route component={NotFound} />
     </Switch>
   </div>
 );
