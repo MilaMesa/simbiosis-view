@@ -1,6 +1,7 @@
 import React from "react";
 import Main from "./Main";
 import Header from "./Header";
+import HeaderUnLogin from './HeaderUnLogin';
 import Login from '../Components/Login/Login';
 
 class App extends React.Component {
@@ -28,7 +29,10 @@ class App extends React.Component {
       );
     } else {
       return (
-        <Login onLogged={() => this.handleLogged()} />
+        <div>
+          <HeaderUnLogin></HeaderUnLogin>
+          <Login onLogged={() => this.handleLogged()} />
+        </div>
       );
     }
   }

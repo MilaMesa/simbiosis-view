@@ -41,19 +41,19 @@ class Iniciar extends React.Component {
             .then(
                 (data) => {
                     data.error ?
-                        console.log('login exitoso')
-                        :
                         this.setState({
                             error: true,
                             mensaje: 'Por favor revise el usuario y la contraseña'
                         })
+                        :
+                        this.props.onLogged();
                 },
                 (error) => {
                     this.setState({
                         error: true,
                         mensaje: 'Ocurrio un error con el servicio de login por favor intente mas tarde'
                     })
-                    console.log(error)
+                    console.log(error);
                 }
             );
     }
@@ -80,7 +80,7 @@ class Iniciar extends React.Component {
                     <br />
                     <button>Iniciar sesion</button>
                 </form>
-                {this.state.error ? <span>Revise el usuario y contraseña</span> : <div />}
+                {this.state.error ? <span>{this.state.mensaje}</span> : <div />}
                 <div>
                     <h3>No estas registrado</h3>
                     <li><Link to="/registrate">registrate</Link></li>
