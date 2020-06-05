@@ -45,7 +45,7 @@ class CrearCuenta extends React.Component {
 
     validateChange(campo, value) {
         let errors = this.state.errors;
-        let error = this.validarCamposObligatorios();
+        let error = this.state.error;
         switch (campo) {
             case 'usuario':
                 errors.usuario = this.validarValorMaximo(campo, value, 15) + this.validarVacio(campo, value);
@@ -67,11 +67,11 @@ class CrearCuenta extends React.Component {
                 error = errors.apellido.length > 0;
                 break;
             case 'telefono':
-                errors.telefono = this.validarValorMaximo(campo, value, 8) + this.validarNumerico(campo, value) + this.validarVacio(campo, value);
+                errors.telefono = this.validarValorMaximo(campo, value, 7) + this.validarNumerico(campo, value) + this.validarVacio(campo, value);
                 error = errors.telefono.length > 0;
                 break;
             case 'celular':
-                errors.celular = this.validarValorMaximo(campo, value, 11) + this.validarNumerico(campo, value) + this.validarVacio(campo, value);
+                errors.celular = this.validarValorMaximo(campo, value, 10) + this.validarNumerico(campo, value) + this.validarValorMinimo(campo, value, 9);
                 error = errors.celular.length > 0;
                 break;
             case 'correo':
@@ -87,15 +87,16 @@ class CrearCuenta extends React.Component {
                 error = errors.nombreEmpresa.length > 0;
                 break;
             case 'password':
-                errors.password = this.validarValorMaximo(campo, value, 30)
+                errors.password = this.validarValorMaximo(campo, value, 30) + this.validarValorMinimo(campo, value, 8);
                 error = errors.password.length > 0;
                 break;
             default:
                 break;
         }
-
+        error = error || this.validarCamposObligatorios();
+        console.log(error);
         this.setState({ errors, [campo]: value, error }, () => {
-            console.log(errors)
+            console.log({ errors })
         })
 
 
@@ -103,19 +104,20 @@ class CrearCuenta extends React.Component {
 
     validarCamposObligatorios() {
         const state = this.state;
-        if (state.nombre.length > 0 &&
-            state.numeroIdentificacion.length > 0 &&
-            state.password.length > 0 &&
-            state.usuario.length > 0 &&
-            state.nombre.length > 0 &&
-            state.celular.length > 0 &&
-            state.correo.length > 0 &&
-            state.apellido.length > 0 &&
-            (state.tipoUsuario == 'PROVEEDOR' && state.nombreEmpresa.length > 0)
+        if (state.nombre.length > 0 && state.errors.nombre === '' &&
+            state.numeroIdentificacion.length > 0 && state.errors.numeroIdentificacion === '' &&
+            state.password.length > 0 && state.errors.password === '' &&
+            state.usuario.length > 0 && state.errors.usuario === '' &&
+            state.celular.length > 0 && state.errors.celular === '' &&
+            state.correo.length > 0 && state.errors.correo === '' &&
+            state.apellido.length > 0 && state.errors.apellido === '' &&
+            ((state.tipoUsuario === 'PROVEEDOR' && state.nombreEmpresa.length > 0 && state.errors.nombreEmpresa === '')
+                || state.tipoUsuario === 'TALLER')
         ) {
+            return false;
+        } else {
             return true;
         }
-        return false;
     }
 
     validateText(name, value) {
@@ -129,7 +131,7 @@ class CrearCuenta extends React.Component {
     }
 
     validarValorMaximo(name, value, maximo) {
-        return value.length < maximo ? '' : 'El campo ' + name + ' no debe superar los ' + maximo + ' caracteres.\n';
+        return value.length <= maximo ? '' : 'El campo ' + name + ' no debe superar los ' + maximo + ' caracteres.\n';
     }
 
     validarValorMinimo(name, value, minimo) {
