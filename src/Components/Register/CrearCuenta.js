@@ -8,15 +8,16 @@ class CrearCuenta extends React.Component {
             usuario: '',
             password: '',
             numeroIdentificacion: '',
-            tipoIdentificacion: '',
+            tipoIdentificacion: 'CC',
             nombre: '',
             apellido: '',
             telefono: '',
             celular: '',
             direccion: '',
             nombreEmpresa: '',
-            tipoUsuario: '',
+            tipoUsuario: 'TALLER',
             correo: '',
+            mensaje: '',
             error: true,
             errors: {
                 usuario: '',
@@ -67,7 +68,7 @@ class CrearCuenta extends React.Component {
                 error = errors.apellido.length > 0;
                 break;
             case 'telefono':
-                errors.telefono = this.validarValorMaximo(campo, value, 7) + this.validarNumerico(campo, value) + this.validarVacio(campo, value);
+                errors.telefono = this.validarValorMaximo(campo, value, 7) + this.validarNumerico(campo, value);
                 error = errors.telefono.length > 0;
                 break;
             case 'celular':
@@ -94,12 +95,7 @@ class CrearCuenta extends React.Component {
                 break;
         }
         error = error || this.validarCamposObligatorios();
-        console.log(error);
-        this.setState({ errors, [campo]: value, error }, () => {
-            console.log({ errors })
-        })
-
-
+        this.setState({ errors, [campo]: value, error });
     }
 
     validarCamposObligatorios() {
@@ -127,7 +123,12 @@ class CrearCuenta extends React.Component {
 
     validarNumerico(name, value) {
         const textoRegex = RegExp(/^\d+$/i);
-        return textoRegex.test(value) ? '' : 'El campo ' + name + ' debe contener solo numeros.\n';
+        if (value.length > 0) {
+            return textoRegex.test(value) ? '' : 'El campo ' + name + ' debe contener solo numeros.\n';
+        }
+        else {
+            return '';
+        }
     }
 
     validarValorMaximo(name, value, maximo) {
@@ -139,7 +140,7 @@ class CrearCuenta extends React.Component {
     }
 
     validarVacio(name, value) {
-        return value.length > 0 ? '' : 'El campo ' + name + 'no debe estar vacio.\n';
+        return value.length > 0 ? '' : 'El campo ' + name + ' no debe estar vacio.\n';
     }
 
     validarCorreo(name, value) {
@@ -157,6 +158,42 @@ class CrearCuenta extends React.Component {
     handleSubmit(submit) {
         submit.preventDefault();
         console.log({ ...this.state });
+        fetch("http://localhost:8080/cuenta/crear", {
+            method: 'POST',
+            body: JSON.stringify(this.state),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => response.json())
+            .then((data) => {
+                console.log({ data });
+                let errors = this.state.errors;
+                let mensaje = this.state.mensaje;
+                data.status === 409 ?
+                    errors.usuario = 'El usuario ya existe, por favor cambielo por uno nuevo'
+                    :
+                    this.props.onLogged();
+                this.setState({
+                    error: data.error,
+                    mensaje,
+                    errors
+                })
+
+            },
+                (error) => {
+                    let errors = this.state.errors;
+                    let mensaje = this.state.mensaje;
+                    error.status === '409' ?
+                        errors.usuario = 'El usuario ya existe, por favor cambielo por uno nuevo'
+                        :
+                        mensaje = 'Ocurrio un error con el servicio de login por favor intente mas tarde'
+                    this.setState({
+                        error: true,
+                        errors
+                    })
+                    console.log({ error });
+                }
+            );
     }
 
     render() {
@@ -170,7 +207,7 @@ class CrearCuenta extends React.Component {
                         onChange={this.handleChange}
                         value={this.state.tipoIdentificacion}
                     >
-                        <option value='CC'>Cedula de ciudadania</option>
+                        <option value='CC' selected="selected">Cedula de ciudadania</option>
                         <option value='CE'>Cedula de extrangeria</option>
                         <option value='TI'>Tarjeta de identidad</option>
                         <option value='PAS'>Pasaporte</option>
@@ -238,7 +275,7 @@ class CrearCuenta extends React.Component {
                         id='tipoUsuario'
                         onChange={this.handleChange}
                         value={this.state.tipoUsuario}>
-                        <option value='TALLER'>Taller</option>
+                        <option value='TALLER' selected="selected">Taller</option>
                         <option value='PROVEEDOR'>Proveedor</option>
                     </select>
                     {
@@ -275,7 +312,7 @@ class CrearCuenta extends React.Component {
                     {this.state.errors.password ? <div><span className='error'>{this.state.errors.password}</span><br /></div> : <div></div>}
                     <button disabled={this.state.error}>Registrarse</button>
                 </form>
-
+                {this.state.mensaje.length > 0 ? <div><span className='error'>{this.state.mensaje}</span></div> : <div />}
                 <li><Link to="/">Inicia sesion</Link></li>
             </div>
         );
