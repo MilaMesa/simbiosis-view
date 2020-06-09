@@ -3,6 +3,7 @@ import Main from "./Main";
 import Header from "./Header";
 import HeaderUnLogin from './HeaderUnLogin';
 import Login from '../Components/Login/Login';
+import { Redirect } from 'react-router-dom';
 
 class App extends React.Component {
   constructor() {
@@ -23,6 +24,7 @@ class App extends React.Component {
     if (this.state.logged) {
       return (
         <div>
+          <Redirect push to="/" />
           <Header onUnLogged={() => this.handleLogged()} />
           <Main />
         </div>
@@ -30,6 +32,7 @@ class App extends React.Component {
     } else {
       return (
         <div>
+          <Redirect push to="/" />
           <HeaderUnLogin></HeaderUnLogin>
           <Login onLogged={() => this.handleLogged()} />
         </div>

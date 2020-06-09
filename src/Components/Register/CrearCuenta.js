@@ -169,10 +169,16 @@ class CrearCuenta extends React.Component {
                 console.log({ data });
                 let errors = this.state.errors;
                 let mensaje = this.state.mensaje;
-                data.status === 409 ?
-                    errors.usuario = 'El usuario ya existe, por favor cambielo por uno nuevo'
-                    :
+                if (!data.error) {
                     this.props.onLogged();
+                } else if (data.status === 409) {
+                    errors.usuario = 'El usuario ya existe, por favor cambielo por uno nuevo';
+                } else if (data.status === 424) {
+                    errors.numeroIdentificacion = 'El documento ya existe, por favor reviselo';
+                    errors.correo = 'El correo ya existe, por favor reviselo y cambielo por uno nuevo';
+                } else if (data.status === 400) {
+                    mensaje = 'La informacion ingresada esta incompleta por favor validela.'
+                }
                 this.setState({
                     error: data.error,
                     mensaje,
@@ -181,15 +187,11 @@ class CrearCuenta extends React.Component {
 
             },
                 (error) => {
-                    let errors = this.state.errors;
                     let mensaje = this.state.mensaje;
-                    error.status === '409' ?
-                        errors.usuario = 'El usuario ya existe, por favor cambielo por uno nuevo'
-                        :
-                        mensaje = 'Ocurrio un error con el servicio de login por favor intente mas tarde'
+                    mensaje = 'Ocurrio un error con el servicio de login por favor intente mas tarde'
                     this.setState({
                         error: true,
-                        errors
+                        mensaje,
                     })
                     console.log({ error });
                 }
