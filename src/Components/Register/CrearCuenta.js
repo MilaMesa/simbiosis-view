@@ -170,7 +170,8 @@ class CrearCuenta extends React.Component {
                 let errors = this.state.errors;
                 let mensaje = this.state.mensaje;
                 if (!data.error) {
-                    this.props.onLogged();
+                    this.props.onLogged(data.numeroIdentificacion);
+                    console.log({ data });
                 } else if (data.status === 409) {
                     errors.usuario = 'El usuario ya existe, por favor cambielo por uno nuevo';
                 } else if (data.status === 424) {

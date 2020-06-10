@@ -46,7 +46,8 @@ class Iniciar extends React.Component {
                             mensaje: 'Por favor revise el usuario y la contraseña'
                         })
                         :
-                        this.props.onLogged();
+                        this.props.onLogged(data.numeroIdentificacion);
+                        console.log({ data });
                 },
                 (error) => {
                     this.setState({

@@ -10,13 +10,15 @@ class App extends React.Component {
     super();
     this.state = {
       logged: false,
+      id: null
     }
   }
 
-  handleLogged() {
+  handleLogged(id) {
     this.setState({
       ...this.state,
       logged: !this.state.logged,
+      id,
     });
   }
 
@@ -25,7 +27,7 @@ class App extends React.Component {
       return (
         <div>
           <Redirect push to="/" />
-          <Header onUnLogged={() => this.handleLogged()} />
+          <Header onUnLogged={() => this.handleLogged(null)} id={this.state.id} />
           <Main />
         </div>
       );
@@ -34,7 +36,7 @@ class App extends React.Component {
         <div>
           <Redirect push to="/" />
           <HeaderUnLogin></HeaderUnLogin>
-          <Login onLogged={() => this.handleLogged()} />
+          <Login onLogged={(id) => this.handleLogged(id)} />
         </div>
       );
     }
