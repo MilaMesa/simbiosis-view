@@ -157,7 +157,6 @@ class CrearCuenta extends React.Component {
 
     handleSubmit(submit) {
         submit.preventDefault();
-        console.log({ ...this.state });
         fetch("http://localhost:8080/cuenta/crear", {
             method: 'POST',
             body: JSON.stringify(this.state),
