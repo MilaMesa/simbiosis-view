@@ -5,7 +5,16 @@ class Perfil extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            perfil: {},
+            perfil: {
+                numeroIdentificacion: '',
+                nombre: '',
+                telefono: '',
+                celular: '',
+                correo: '',
+                direccion: '',
+                newPassword: '',
+                password: '',
+            },
             notFound: false,
             error: false,
             errors: {
@@ -61,13 +70,6 @@ class Perfil extends React.Component {
         let errors = this.state.errors;
         let error = this.state.error;
         switch (campo) {
-            case 'numeroIdentificacion':
-                errors.numeroIdentificacion =
-                    this.validarValorMaximo(value, 11) +
-                    this.validarValorMinimo(value, 6) +
-                    this.validarNumerico(value);
-                error = errors.numeroIdentificacion.length > 0;
-                break;
             case 'nombre':
                 let nombres = value.split(" ");
                 console.log({ nombres });
@@ -107,15 +109,15 @@ class Perfil extends React.Component {
         error = error || this.validarCamposObligatorios();
         let perfil = this.state.perfil;
         perfil = { ...perfil, [campo]: value };
+        console.log({perfil});
         this.setState({ errors, perfil, error });
     }
 
     validarCamposObligatorios() {
         const state = this.state;
+        console.log({state});
         if (state.perfil.nombre.length > 0 && state.errors.nombre === '' &&
-            state.perfil.numeroIdentificacion.length > 0 && state.errors.numeroIdentificacion === '' &&
             state.perfil.password.length > 0 && state.errors.password === '' &&
-            state.perfil.newPassword.length > 0 && state.errors.newPassword === '' &&
             state.perfil.celular.length > 0 && state.errors.celular === '' &&
             state.perfil.correo.length > 0 && state.errors.correo === ''
         ) {
@@ -181,6 +183,9 @@ class Perfil extends React.Component {
                 <div>
                     {this.state.editar ? <h1>Editar Perfil</h1> : <h1>My Perfil</h1>}
                     <form onSubmit={this.handleSubmit}>
+                        <label htmlFor="tipoIdentificacion">{this.state.perfil.tipoIdentificacion}: </label>
+                        <label htmlFor="numeroIdentificacion">{this.state.perfil.numeroIdentificacion}</label>
+                        <br />
                         <input
                             id="nombre"
                             onChange={this.handleChange}
@@ -189,16 +194,6 @@ class Perfil extends React.Component {
                         />
                         <br />
                         {this.state.errors.nombre ? <div><span className='error'>{this.state.errors.nombre}</span><br /></div> : <div></div>}
-                        <label htmlFor="tipoIdentificacion">{this.state.perfil.tipoIdentificacion}</label>
-                        <br />
-                        <input
-                            id="numeroIdentificacion"
-                            onChange={this.handleChange}
-                            value={this.state.perfil.numeroIdentificacion}
-                            disabled={!this.state.editar}
-                        />
-                        <br />
-                        {this.state.errors.numeroIdentificacion ? <div><span className='error'>{this.state.errors.numeroIdentificacion}</span><br /></div> : <div></div>}
                         <input
                             id="telefono"
                             onChange={this.handleChange}
@@ -238,15 +233,19 @@ class Perfil extends React.Component {
                                     id="newPassword"
                                     type="password"
                                     onChange={this.handleChange}
+                                    onPaste={(e)=>e.preventDefault()}
                                     value={this.state.perfil.newPassword}
                                 />
                                 <br />
-                                {this.state.errors.newPassword ? <div><span className='error'>{this.state.errors.newPassword}</span><br /></div> : <div></div>}
+                                {this.state.errors.newPassword ? 
+                                <div><span className='error'>{this.state.errors.newPassword}</span><br /></div> : 
+                                <div>Deje este campo vacio si no desea cambiar la contraseña</div>}
                                 <label htmlFor="password">Contraseña actual</label>
                                 <input
                                     id="password"
                                     type="password"
                                     onChange={this.handleChange}
+                                    onPaste={(e)=>e.preventDefault()}
                                     value={this.state.perfil.password}
                                 />
                                 <br />

@@ -76,6 +76,7 @@ class Iniciar extends React.Component {
                         id="password"
                         type="password"
                         onChange={this.handleChangePassword}
+                        onPaste={(e)=>e.preventDefault()}
                         value={this.state.password}
                     />
                     <br />
