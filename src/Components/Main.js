@@ -5,7 +5,7 @@ import About from './About';
 import Perfiles from './Perfiles/Perfiles';
 import NotFound from './NotFound';
 
-const Main = () => (
+const Main = (props) => (
   <div>
     <Switch>
       <Route exact path="/" component={Home} />

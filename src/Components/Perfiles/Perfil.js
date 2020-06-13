@@ -6,7 +6,8 @@ class Perfil extends React.Component {
         super(props);
         this.state = {
             perfil: {
-                numeroIdentificacion: '',
+                usuario: props.match.params.userName,
+                numeroIdentificacion: props.match.params.id,
                 nombre: '',
                 telefono: '',
                 celular: '',
@@ -16,7 +17,7 @@ class Perfil extends React.Component {
                 password: '',
             },
             notFound: false,
-            error: false,
+            error: true,
             errors: {
                 numeroIdentificacion: '',
                 nombre: '',
@@ -27,19 +28,20 @@ class Perfil extends React.Component {
                 newPassword: '',
                 password: '',
             },
-            id: props.match.params.id,
             errorMessage: '',
             editar: false,
         }
         this.editarPerfil = this.editarPerfil.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     };
 
     componentDidMount() {
-        fetch("http://localhost:8080/perfil/" + this.state.id)
+        fetch("http://localhost:8080/perfil/" + this.state.perfil.numeroIdentificacion)
             .then(async response => {
                 const data = await response.json();
                 let notFound = this.state.notFound;
+                let perfil = this.state.perfil;
 
                 if (response.status === 404) {
                     notFound = true;
@@ -47,7 +49,8 @@ class Perfil extends React.Component {
                     return Promise.reject(refuse);
                 }
 
-                this.setState({ perfil: data, notFound });
+                perfil = { ...perfil, ...data };
+                this.setState({ perfil, notFound });
             })
             .catch(error => {
                 this.setState({ errorMessage: error.toString(), error: true });
@@ -57,7 +60,10 @@ class Perfil extends React.Component {
     }
 
     editarPerfil() {
-        this.setState({ editar: true });
+        const perfil = this.state.perfil;
+        perfil.password = '';
+        perfil.newPassword = '';
+        this.setState({ editar: true, perfil });
     }
 
     handleChange(change) {
@@ -72,7 +78,6 @@ class Perfil extends React.Component {
         switch (campo) {
             case 'nombre':
                 let nombres = value.split(" ");
-                console.log({ nombres });
                 errors.nombre = this.validarValorMaximo(nombres[0], 40) + this.validateText(nombres[0]) + this.validarVacio(nombres[0]);
                 if (nombres.length === 2) {
                     errors.nombre = errors.nombre + this.validarValorMaximo(nombres[1], 40) + this.validateText(nombres[1]) + this.validarVacio(nombres[1]);
@@ -109,13 +114,11 @@ class Perfil extends React.Component {
         error = error || this.validarCamposObligatorios();
         let perfil = this.state.perfil;
         perfil = { ...perfil, [campo]: value };
-        console.log({perfil});
         this.setState({ errors, perfil, error });
     }
 
     validarCamposObligatorios() {
         const state = this.state;
-        console.log({state});
         if (state.perfil.nombre.length > 0 && state.errors.nombre === '' &&
             state.perfil.password.length > 0 && state.errors.password === '' &&
             state.perfil.celular.length > 0 && state.errors.celular === '' &&
@@ -168,13 +171,52 @@ class Perfil extends React.Component {
 
     handleSubmit(submit) {
         submit.preventDefault();
-        console.log({ ...this.state.perfil });
+        fetch('http://localhost:8080/cuenta/actualizar', {
+            method: 'POST',
+            body: JSON.stringify(this.state.perfil),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => response.json())
+            .then((data) => {
+                let editar = this.state.editar;
+                let errors = this.state.errors;
+                let errorMessage = this.state.errorMessage;
+                if (data.ok) {
+                    editar = false;
+                }
+                switch (data.status) {
+                    case 400: {
+                        errors.nombre = 'El nombre completo del usuario solo debe estar compuesto por 2 palabras.';
+                        errorMessage = 'Error en uno o mas campos por favor valide que estan correctos.';
+                        break;
+                    }
+                    case 417: {
+                        errors.password = 'La contraseña no es correcta, no es posible actualizar los datos.';
+                        break;
+                    }
+                    case 404: {
+                        errorMessage = 'Existe un problema con el usuario por favor envienos un correo con el usuario y la informacion de la cuenta para darte una solucion.';
+                        const refuse = (data && data.message) || data.statusText;
+                        return Promise.reject(refuse);
+                    }
+                    default: {
+                        const refuse = (data && data.message) || data.statusText;
+                        return Promise.reject(refuse);
+                    }
+                }
+                this.setState({ editar, errors, errorMessage });
+            })
+            .catch((dataError) => {
+                let errorMessage = this.state.errorMessage;
+                let error = this.state.error;
+                errorMessage = 'Ocurrio un error con el servicio por favor intente mas tarde.\n' + dataError.toString();
+                error = true;
+                this.setState({ errorMessage, error });
+            });
     }
 
     render() {
-        if (this.state.errorMessage) {
-            return (<div>{this.state.errorMessage}</div>);
-        }
         if (this.state.notFound) {
             return (<NotFound></NotFound>);
         }
@@ -228,29 +270,30 @@ class Perfil extends React.Component {
                         {this.state.errors.direccion ? <div><span className='error'>{this.state.errors.direccion}</span><br /></div> : <div></div>}
                         {this.state.editar ?
                             <div>
-                                <label htmlFor="newPassword">Contraseña nueva</label>
-                                <input
-                                    id="newPassword"
-                                    type="password"
-                                    onChange={this.handleChange}
-                                    onPaste={(e)=>e.preventDefault()}
-                                    value={this.state.perfil.newPassword}
-                                />
-                                <br />
-                                {this.state.errors.newPassword ? 
-                                <div><span className='error'>{this.state.errors.newPassword}</span><br /></div> : 
-                                <div>Deje este campo vacio si no desea cambiar la contraseña</div>}
                                 <label htmlFor="password">Contraseña actual</label>
                                 <input
                                     id="password"
                                     type="password"
                                     onChange={this.handleChange}
-                                    onPaste={(e)=>e.preventDefault()}
+                                    onPaste={(e) => e.preventDefault()}
                                     value={this.state.perfil.password}
                                 />
                                 <br />
                                 {this.state.errors.password ? <div><span className='error'>{this.state.errors.password}</span><br /></div> : <div></div>}
-                                <button disabled={!this.state.error}>Actualizar</button>
+                                <label htmlFor="newPassword">Contraseña nueva</label>
+                                <input
+                                    id="newPassword"
+                                    type="password"
+                                    onChange={this.handleChange}
+                                    onPaste={(e) => e.preventDefault()}
+                                    value={this.state.perfil.newPassword}
+                                />
+                                <br />
+                                {this.state.errors.newPassword ?
+                                    <div><span className='error'>{this.state.errors.newPassword}</span><br /></div> :
+                                    <div>Deje este campo vacio si no desea cambiar la contraseña</div>}
+                                <button disabled={this.state.error}>Actualizar</button>
+                                {this.state.errorMessage ? <div><span className='error'>{this.state.errorMessage}</span></div> : <div />}
                             </div>
                             :
                             <div></div>

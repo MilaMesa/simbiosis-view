@@ -6,7 +6,7 @@ import Perfil from './Perfil';
 const Perfiles = ({ match }) => (
   <Switch>
     <Route exact path={`${match.url}`} component={TodosLosPerfiles} />
-    <Route path={`${match.url}/:id`} component={Perfil} />
+    <Route path={`${match.url}/:id/:userName`} component={Perfil} />
   </Switch>
 );
 
