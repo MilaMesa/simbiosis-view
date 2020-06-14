@@ -36,7 +36,7 @@ class App extends React.Component {
     } else {
       return (
         <div>
-          <Redirect push to="/" />
+          <Redirect push to="/registrate" />
           <HeaderUnLogin></HeaderUnLogin>
           <Login onLogged={(id, userName) => this.handleLogged(id, userName)} />
         </div>

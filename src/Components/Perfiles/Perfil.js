@@ -184,6 +184,8 @@ class Perfil extends React.Component {
                 let errorMessage = this.state.errorMessage;
                 if (data.ok) {
                     editar = false;
+                    this.setState({ editar });
+                    return;
                 }
                 switch (data.status) {
                     case 400: {
@@ -210,7 +212,7 @@ class Perfil extends React.Component {
             .catch((dataError) => {
                 let errorMessage = this.state.errorMessage;
                 let error = this.state.error;
-                errorMessage = 'Ocurrio un error con el servicio por favor intente mas tarde.\n' + dataError.toString();
+                errorMessage = 'Ocurrio un error con el servicio por favor intente mas tarde.\n'.concat(dataError);
                 error = true;
                 this.setState({ errorMessage, error });
             });
