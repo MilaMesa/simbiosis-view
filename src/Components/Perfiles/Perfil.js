@@ -182,11 +182,6 @@ class Perfil extends React.Component {
                 let editar = this.state.editar;
                 let errors = this.state.errors;
                 let errorMessage = this.state.errorMessage;
-                if (data.ok) {
-                    editar = false;
-                    this.setState({ editar });
-                    return;
-                }
                 switch (data.status) {
                     case 400: {
                         errors.nombre = 'El nombre completo del usuario solo debe estar compuesto por 2 palabras.';
@@ -203,16 +198,16 @@ class Perfil extends React.Component {
                         return Promise.reject(refuse);
                     }
                     default: {
-                        const refuse = (data && data.message) || data.statusText;
-                        return Promise.reject(refuse);
+                        editar = false;
                     }
                 }
                 this.setState({ editar, errors, errorMessage });
             })
             .catch((dataError) => {
+                console.log(dataError);
                 let errorMessage = this.state.errorMessage;
                 let error = this.state.error;
-                errorMessage = 'Ocurrio un error con el servicio por favor intente mas tarde.\n'.concat(dataError);
+                errorMessage = 'Ocurrio un error con el servicio por favor intente mas tarde.\n';
                 error = true;
                 this.setState({ errorMessage, error });
             });
