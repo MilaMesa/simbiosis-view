@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import UsersAPI from '../../api';
+import OfertasApi from '../../api';
 
 const mapUser = url =>
-    UsersAPI.all().map(u => (
+    OfertasApi.all().map(u => (
         <li key={u.id}>
-            <Link to={`${url}/${u.id}/${u.name}`}>{u.name}</Link>
+            <Link to={`${url}/${u.id}`}>{u.detalle}</Link> 
         </li>
     ));
 

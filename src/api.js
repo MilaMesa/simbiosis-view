@@ -1,27 +1,17 @@
-const usersAPI = {
-    users: [
-        {
-            id: 10950096,
-            name: "Daniel Venegas",
-            project: "CJeans"
-        },
-        {
-            id: 4782502,
-            name: "Javier Chaparro",
-            project: "Kmetrics"
-        },
-        {
-            id: 9085250,
-            name: "Miguel Avendaño",
-            project: "Kmetrics"
-        }
-    ],
-    all: function() {
-        return this.users;
+const ofertasAPI = {
+    all: () => {
+        fetch("http://localhost:8080/oferta/all")
+            .then(async response => {
+                return await response.json();
+            })
+            .catch(error => {
+                console.error('There was an errorOcurrio un error conusltado las ofertas!', {error});
+            });
+            return [];
     },
-    get: function(id) {
+    get: function (id) {
         return this.users.find(u => u.id === id);
     }
 };
 
-export default usersAPI;
+export default ofertasAPI;
