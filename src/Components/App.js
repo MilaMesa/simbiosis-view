@@ -30,7 +30,7 @@ class App extends React.Component {
         <div>
           <Redirect push to="/" />
           <Header onUnLogged={() => this.handleLogged(null, null)} id={this.state.id} userName={this.state.userName} />
-          <Main/>
+          <Main userName={this.state.userName} id={this.state.id} />
         </div>
       );
     } else {

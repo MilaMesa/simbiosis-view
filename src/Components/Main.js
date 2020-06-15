@@ -9,9 +9,9 @@ import NotFound from './NotFound';
 const Main = (props) => (
   <div>
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/perfil/:id/:userName" component={Perfil} />
-      <Route path="/ofertas" component={Ofertas} />
+      <Route exact path="/" render={(props) => <Home {...props} />} />
+      <Route path="/perfil/:id/:userName" render={(props) => <Perfil {...props} />} />
+      <Route path="/ofertas" render={(props) => <Ofertas {...props} />} />
       <Route path="/about" component={About} />
       <Route component={NotFound} />
     </Switch>

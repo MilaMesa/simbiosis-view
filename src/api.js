@@ -1,6 +1,8 @@
+const urlBase = 'http://localhost:8081/'
+
 const ofertasAPI = {
     all: () => {
-        fetch("http://localhost:8080/oferta/all")
+        fetch(`${urlBase}oferta/all`)
             .then(async response => {
                 return await response.json();
             })

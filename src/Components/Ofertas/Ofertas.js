@@ -4,10 +4,10 @@ import BuscarOfertas from './BuscarOfertas';
 import Oferta from './Oferta';
 
 
-const Perfiles = ({ match }) => (
+const Perfiles = (props) => (
   <Switch>
-    <Route exact path={`${match.url}`} component={BuscarOfertas} />
-    <Route path={`${match.url}/:id`} component={Oferta} />
+    <Route exact path={`${props.match.url}`} render={(props) => <BuscarOfertas {...props} />} />
+    <Route path={`${props.match.url}/:id`} component={Oferta} />
   </Switch>
 );
 
