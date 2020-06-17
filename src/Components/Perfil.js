@@ -37,7 +37,7 @@ class Perfil extends React.Component {
     };
 
     componentDidMount() {
-        fetch("http://localhost:8081/perfil/" + this.state.perfil.numeroIdentificacion)
+        fetch("http://localhost:8080/perfil/" + this.state.perfil.numeroIdentificacion)
             .then(async response => {
                 const data = await response.json();
                 let notFound = this.state.notFound;

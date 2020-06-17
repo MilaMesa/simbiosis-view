@@ -14,20 +14,19 @@ class BuscarOfertas extends React.Component {
                 detalle: '',
             },
             mensaje: '',
-            id: this.props.id,
+            numeroIdentificacion: this.props.id,
+            id: '',
             tipoOferta: 'CC',
             detalle: '',
+            ofertas: [],
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.mapUser = this.mapUser.bind(this);
     }
 
     mapUser = url => {
-        OfertasApi.all().map(u => (
-            <li key={u.id}>
-                <Link to={`${url}/${u.id}`}>{u.detalle}</Link>
-            </li>
-        ));
+
     }
 
     handleSubmit = (e) => {
@@ -36,11 +35,21 @@ class BuscarOfertas extends React.Component {
             detalle: this.state.detalle,
             tipoOferta: this.state.tipoOferta,
             fecha: new Date(),
-            usuario: this.props.userName,
-            numeroIdentificacion: this.state.id,
+            numeroIdentificacion: this.state.numeroIdentificacion,
         }
-        console.log(publicacion);
-
+        OfertasApi.crear(publicacion).then(creada => {
+            if (creada.id) {
+                this.setState({ id: creada.id });
+            } else {
+                let mensaje = this.state.mensaje;
+                if (creada.status === 400) {
+                    mensaje = 'Existe un problema con los datos, por favor revise que esten correctos.';
+                } else {
+                    mensaje = 'No se pudo obtener el id de la oferta creada';
+                }
+                this.setState({ error: true, mensaje });
+            }
+        });
     };
 
 
@@ -74,6 +83,10 @@ class BuscarOfertas extends React.Component {
         }
     };
 
+    componentDidMount() {
+        OfertasApi.all().then((response) => response).then((response) => { this.setState({ ofertas: response }); console.log(this.state) });
+    }
+
     render() {
         return (
             <div>
@@ -86,7 +99,7 @@ class BuscarOfertas extends React.Component {
                             onChange={this.handleChange}
                             value={this.state.tipoOferta}
                         >
-                            <option value='CC' selected="selected">Cedula de ciudadania</option>
+                            <option value='CC'>Cedula de ciudadania</option>
                             <option value='T'>T</option>
                         </select>
                         <br />
@@ -100,12 +113,18 @@ class BuscarOfertas extends React.Component {
                         {this.state.errors.detalle ? <div><span className='error'>{this.state.errors.detalle}</span></div> : <div />}
                         <button disabled={this.state.error}>Crear</button>
                     </form>
-                    {this.state.error ? <span>{this.state.mensaje}</span> : <div />}
+                    {this.state.error ? <span className='error'>{this.state.mensaje}</span> : <div />}
+                    {this.state.id ? <span className='info'>La oferta fue creada con el id: {this.state.id}</span> : <div />}
                 </div>
                 <div>
                     <h1>Buscar Ofertas</h1>
                     <div>Ofertas disponibles</div>
-                    <ul>{this.mapUser(this.props.match.url)}</ul>
+                    <ul>{
+                        this.state.ofertas.map(u => (
+                            <li key={u.id}>
+                                <Link to={`${this.props.match.url}/${u.id}`}>{u.detalle}</Link>
+                            </li>
+                        ))}</ul>
                 </div>
 
             </div>

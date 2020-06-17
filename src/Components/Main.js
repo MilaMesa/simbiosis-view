@@ -6,12 +6,12 @@ import Perfil from './Perfil';
 import Ofertas from './Ofertas/Ofertas';
 import NotFound from './NotFound';
 
-const Main = (props) => (
+const Main = ({ id, userName }) => (
   <div>
     <Switch>
-      <Route exact path="/" render={(props) => <Home {...props} />} />
+      <Route exact path="/" render={(props) => <Home {...props} id={id} userName={userName} />} />
       <Route path="/perfil/:id/:userName" render={(props) => <Perfil {...props} />} />
-      <Route path="/ofertas" render={(props) => <Ofertas {...props} />} />
+      <Route path="/ofertas" render={(props) => <Ofertas {...props} id={id} userName={userName} />} />
       <Route path="/about" component={About} />
       <Route component={NotFound} />
     </Switch>

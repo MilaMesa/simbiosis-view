@@ -209,7 +209,7 @@ class CrearCuenta extends React.Component {
                         onChange={this.handleChange}
                         value={this.state.tipoIdentificacion}
                     >
-                        <option value='CC' selected="selected">Cedula de ciudadania</option>
+                        <option value='CC'>Cedula de ciudadania</option>
                         <option value='CE'>Cedula de extrangeria</option>
                         <option value='TI'>Tarjeta de identidad</option>
                         <option value='PAS'>Pasaporte</option>
@@ -277,7 +277,7 @@ class CrearCuenta extends React.Component {
                         id='tipoUsuario'
                         onChange={this.handleChange}
                         value={this.state.tipoUsuario}>
-                        <option value='TALLER' selected="selected">Taller</option>
+                        <option value='TALLER'>Taller</option>
                         <option value='PROVEEDOR'>Proveedor</option>
                     </select>
                     {
