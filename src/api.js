@@ -7,7 +7,7 @@ const ofertasAPI = {
             return response.json();
         }
         catch (error) {
-            console.error('There was an errorOcurrio un error conusltado las ofertas!', { error });
+            console.error('There was an errorOcurrio un error consultado las ofertas!', { error });
         };
         return [];
     },
@@ -27,8 +27,15 @@ const ofertasAPI = {
             return error ? error : {};
         }
     },
-    get: function (id) {
-        return this.users.find(u => u.id === id);
+    get: async (id) => {
+        try {
+            const response = await fetch(`${urlBase}oferta/${id}`);
+            return response.json();
+        }
+        catch (error) {
+            console.log('Ocurrio un error obteniendo la oferta' + id, { error });
+            return error ? error : {};
+        }
     }
 };
 

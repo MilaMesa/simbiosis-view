@@ -84,7 +84,7 @@ class BuscarOfertas extends React.Component {
     };
 
     componentDidMount() {
-        OfertasApi.all().then((response) => response).then((response) => { this.setState({ ofertas: response }); console.log(this.state) });
+        OfertasApi.all().then((response) => response).then((response) => this.setState({ ofertas: response }));
     }
 
     render() {

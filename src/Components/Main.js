@@ -10,7 +10,7 @@ const Main = ({ id, userName }) => (
   <div>
     <Switch>
       <Route exact path="/" render={(props) => <Home {...props} id={id} userName={userName} />} />
-      <Route path="/perfil/:id/:userName" render={(props) => <Perfil {...props} />} />
+      <Route path="/perfil/:id/:userName" render={(props) => <Perfil {...props} id={id} userName={userName}/>} />
       <Route path="/ofertas" render={(props) => <Ofertas {...props} id={id} userName={userName} />} />
       <Route path="/about" component={About} />
       <Route component={NotFound} />

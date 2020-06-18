@@ -223,7 +223,7 @@ class CrearCuenta extends React.Component {
                         value={this.state.numeroIdentificacion}
                     />
                     <br />
-                    {this.state.errors.numeroIdentificacion ? <div><span className='error'>{this.state.errors.numeroIdentificacion}</span><br /></div> : <div></div>}
+                    {this.state.errors.numeroIdentificacion ? <div><span className='danger'>{this.state.errors.numeroIdentificacion}</span><br /></div> : <div></div>}
                     <label htmlFor="nombre">Nombre</label>
                     <input
                         id="nombre"
@@ -231,7 +231,7 @@ class CrearCuenta extends React.Component {
                         value={this.state.nombre}
                     />
                     <br />
-                    {this.state.errors.nombre ? <div><span className='error'>{this.state.errors.nombre}</span><br /></div> : <div></div>}
+                    {this.state.errors.nombre ? <div><span className='danger'>{this.state.errors.nombre}</span><br /></div> : <div></div>}
                     <label htmlFor="apellido">Apellido</label>
                     <input
                         id="apellido"
@@ -239,7 +239,7 @@ class CrearCuenta extends React.Component {
                         value={this.state.apellido}
                     />
                     <br />
-                    {this.state.errors.apellido ? <div> <span className='error'>{this.state.errors.apellido}</span><br /></div> : <div></div>}
+                    {this.state.errors.apellido ? <div> <span className='danger'>{this.state.errors.apellido}</span><br /></div> : <div></div>}
                     <label htmlFor="telefono">Telefono fijo</label>
                     <input
                         id="telefono"
@@ -247,7 +247,7 @@ class CrearCuenta extends React.Component {
                         value={this.state.telefono}
                     />
                     <br />
-                    {this.state.errors.telefono ? <div><span className='error'>{this.state.errors.telefono}</span><br /></div> : <div></div>}
+                    {this.state.errors.telefono ? <div><span className='danger'>{this.state.errors.telefono}</span><br /></div> : <div></div>}
                     <label htmlFor="celular">Celular</label>
                     <input
                         id="celular"
@@ -255,7 +255,7 @@ class CrearCuenta extends React.Component {
                         value={this.state.celular}
                     />
                     <br />
-                    {this.state.errors.celular ? <div><span className='error'>{this.state.errors.celular}</span><br /></div> : <div></div>}
+                    {this.state.errors.celular ? <div><span className='danger'>{this.state.errors.celular}</span><br /></div> : <div></div>}
                     <label htmlFor="correo">Correo</label>
                     <input
                         id="correo"
@@ -263,7 +263,7 @@ class CrearCuenta extends React.Component {
                         value={this.state.correo}
                     />
                     <br />
-                    {this.state.errors.correo ? <div><span className='error'>{this.state.errors.correo}</span><br /></div> : <div></div>}
+                    {this.state.errors.correo ? <div><span className='danger'>{this.state.errors.correo}</span><br /></div> : <div></div>}
                     <label htmlFor="direccion">Direccion</label>
                     <input
                         id="direccion"
@@ -271,7 +271,7 @@ class CrearCuenta extends React.Component {
                         value={this.state.direccion}
                     />
                     <br />
-                    {this.state.errors.direccion ? <div><span className='error'>{this.state.errors.direccion}</span><br /></div> : <div></div>}
+                    {this.state.errors.direccion ? <div><span className='danger'>{this.state.errors.direccion}</span><br /></div> : <div></div>}
                     <label htmlFor="tipoUsuario">Tipo Usuario</label>
                     <select
                         id='tipoUsuario'
@@ -290,7 +290,7 @@ class CrearCuenta extends React.Component {
                                     value={this.state.nombreEmpresa}
                                 />
                                 <br />
-                                {this.state.errors.nombreEmpresa ? <div><span className='error'>{this.state.errors.nombreEmpresa}</span><br /></div> : <div></div>}
+                                {this.state.errors.nombreEmpresa ? <div><span className='danger'>{this.state.errors.nombreEmpresa}</span><br /></div> : <div></div>}
                             </div>
                             :
                             <div />
@@ -302,7 +302,7 @@ class CrearCuenta extends React.Component {
                         value={this.state.usuario}
                     />
                     <br />
-                    {this.state.errors.usuario ? <div><span className='error'>{this.state.errors.usuario}</span><br /></div> : <div></div>}
+                    {this.state.errors.usuario ? <div><span className='danger'>{this.state.errors.usuario}</span><br /></div> : <div></div>}
                     <label htmlFor="password">Contraseña</label>
                     <input
                         id="password"
@@ -311,10 +311,10 @@ class CrearCuenta extends React.Component {
                         value={this.state.password}
                     />
                     <br />
-                    {this.state.errors.password ? <div><span className='error'>{this.state.errors.password}</span><br /></div> : <div></div>}
+                    {this.state.errors.password ? <div><span className='danger'>{this.state.errors.password}</span><br /></div> : <div></div>}
                     <button disabled={this.state.error}>Registrarse</button>
                 </form>
-                {this.state.mensaje.length > 0 ? <div><span className='error'>{this.state.mensaje}</span></div> : <div />}
+                {this.state.mensaje.length > 0 ? <div><span className='danger'>{this.state.mensaje}</span></div> : <div />}
                 <li><Link to="/">Inicia sesion</Link></li>
             </div>
         );

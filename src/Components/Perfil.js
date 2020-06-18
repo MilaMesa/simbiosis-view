@@ -1,10 +1,12 @@
 import React from 'react';
 import NotFound from './NotFound';
+import Comentarios from './Comentarios';
 
 class Perfil extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            miPerfil: props.match.params.userName === props.userName,
             perfil: {
                 usuario: props.match.params.userName,
                 numeroIdentificacion: props.match.params.id,
@@ -50,6 +52,7 @@ class Perfil extends React.Component {
                 }
 
                 perfil = { ...perfil, ...data };
+                console.log({ ...this.state });
                 this.setState({ perfil, notFound });
             })
             .catch(error => {
@@ -220,7 +223,7 @@ class Perfil extends React.Component {
         return (
             this.state.perfil.tipoIdentificacion ?
                 <div>
-                    {this.state.editar ? <h1>Editar Perfil</h1> : <h1>My Perfil</h1>}
+                    {this.state.miPerfil ? this.state.editar ? <h1>Editar Perfil</h1> : <h1>My Perfil</h1> : <h1>{this.state.perfil.usuario}</h1>}
                     <form onSubmit={this.handleSubmit}>
                         <label htmlFor="tipoIdentificacion">{this.state.perfil.tipoIdentificacion}: </label>
                         <label htmlFor="numeroIdentificacion">{this.state.perfil.numeroIdentificacion}</label>
@@ -296,7 +299,13 @@ class Perfil extends React.Component {
                             <div></div>
                         }
                     </form>
-                    {this.state.editar ? <div /> : <button onClick={this.editarPerfil}>Editar</button>}
+                    {this.state.miPerfil ? !this.state.editar ? <button onClick={this.editarPerfil}>Editar</button> : <div /> : <div />}
+                    {this.state.miPerfil ? <div /> : 
+                    <div>
+                        <h1>Comentarios</h1>
+                        <Comentarios usuario={this.state.perfil.numeroIdentificacion} usuarioCreacion={this.props.id}></Comentarios>
+                        </div>
+                        }
                 </div> :
                 <div>... Cargando</div>
         );
