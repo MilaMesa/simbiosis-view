@@ -99,8 +99,19 @@ class BuscarOfertas extends React.Component {
                             onChange={this.handleChange}
                             value={this.state.tipoOferta}
                         >
-                            <option value='CC'>Cedula de ciudadania</option>
-                            <option value='T'>T</option>
+                            <option value='CONFECCION_ROPA_INTERIOR'>confeccion ropa interior"T"</option>
+                            <option value='CONFECCION_MAQUINA_PLANA'>confeccion maquina plana"T"</option>
+                            <option value='CONFECCION_PANTALON'>confeccion pantalon"T"</option>
+                            <option value='CONFECCION_PARA_DAMA'>confeccion ropa dama"T"</option>
+                            <option value='CONFECCION_DE_TAPABOCAS'>confeccion tapabocas"T"</option>
+                            <option value='CONFECCION_DE_BEBE'>confeccion de bebe"T"</option>
+                            <option value='CONFECCION_COBIJAS'>confeccion cobijas"T"</option>
+                            <option value='SOLO_ROPA_INTERIOR_PARA_BEBE_EN_ALGODON'>solo ropa interior para bebe en algodon"P"</option>
+                            <option value='SE_CONFECCIONAN_MAMELUCOS'>se confeccionan mamelucos"P"</option>
+                            <option value='SE_CONFECCIONAN_MEDIAS_PARA_ADULTOS'>se confecciona medias para aulto"P"</option>
+                            <option value='SE_CONFECCIONA_DELANTALES'>se confeccionan delantales"P"</option>
+                            <option value='SE_CONFECIONA_PANTALONES'>se confecciona pantalones"P"</option>
+                            <option value='SE_CONFECCIONAN_CORTINAs'>se confeccionan cortinas"P"</option>
                         </select>
                         <br />
                         <label htmlFor="detalle">Detalle</label>
