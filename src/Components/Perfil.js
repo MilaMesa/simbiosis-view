@@ -159,7 +159,7 @@ class Perfil extends React.Component {
     }
 
     validarVacio(value) {
-        return value.length > 0 ? '' : 'El campo no debe estar vacio.\n';
+        return value.length > 0 ? '' :+ 'El campo no debe estar vacio.\n';
     }
 
     validarCorreo(value) {
@@ -230,8 +230,8 @@ class Perfil extends React.Component {
                     </center>
                     {this.state.miPerfil ? this.state.editar ? <h2 className='text-center'>Editar Perfil</h2> : <h2 className='text-center'>Mi Perfil</h2> : <h2>{this.state.perfil.usuario}</h2>}
                     <div className="general">
-                        
-                        
+
+
                         <form className='form-group' onSubmit={this.handleSubmit}>
                             <label htmlFor="tipoIdentificacion">{this.state.perfil.tipoIdentificacion}: </label>
                             <label htmlFor="numeroIdentificacion">{this.state.perfil.numeroIdentificacion}</label>
@@ -239,7 +239,7 @@ class Perfil extends React.Component {
 
 
                             <div>
-                                 <label className="laders3" htmlFor="nombre">Nombre</label>
+                                <label className="laders3" htmlFor="nombre">Nombre</label>
                                 <input
                                     className='form-control2'
                                     id="nombre"
@@ -249,7 +249,7 @@ class Perfil extends React.Component {
                                 />
                                 {this.state.errors.nombre ? <div><span className='text-danger'>{this.state.errors.nombre}</span><br /></div> : <div></div>}
                             </div>
-                           
+
                             <div> <label className="laders3" htmlFor="telefono">Telefono</label>
                                 <input
                                     className='form-control2'
@@ -296,30 +296,42 @@ class Perfil extends React.Component {
                             {this.state.errors.direccion ? <div><span className='text-danger'>{this.state.errors.direccion}</span><br /></div> : <div></div>}
                             {this.state.editar ?
                                 <div>
-                                    <input
-                                        className='form-control2'
-                                        id="password"
-                                        type="password"
-                                        placeholder='Contraseña actual'
-                                        onChange={this.handleChange}
-                                        onPaste={(e) => e.preventDefault()}
-                                        value={this.state.perfil.password}
-                                    />
-                                    {this.state.errors.password ? <div><span className='text-danger'>{this.state.errors.password}</span><br /></div> : <div></div>}
-                                    <input
-                                        className='form-control2'
-                                        id="newPassword"
-                                        type="password"
-                                        placeholder='Contraseña nueva'
-                                        onChange={this.handleChange}
-                                        onPaste={(e) => e.preventDefault()}
-                                        value={this.state.perfil.newPassword}
-                                    />
+                                    <div> <label className="laders3" >   </label>
+
+                                        <input
+                                            className='form-control2'
+                                            id="password"
+                                            type="password"
+                                            placeholder='Contraseña actual'
+                                            onChange={this.handleChange}
+                                            onPaste={(e) => e.preventDefault()}
+                                            value={this.state.perfil.password}
+                                        />
+
+                                        {this.state.errors.password ? <div><span className='text-danger'>{this.state.errors.password}</span><br /></div> : <div></div>}
+
+                                    </div>
+                                    <div> <label className="laders3" >  </label>
+
+                                        <input
+                                            className='form-control2'
+                                            id="newPassword"
+                                            type="password"
+                                            placeholder='Contraseña nueva'
+                                            onChange={this.handleChange}
+                                            onPaste={(e) => e.preventDefault()}
+                                            value={this.state.perfil.newPassword}
+                                        />
+                                    </div>
+
                                     {this.state.errors.newPassword ?
                                         <div><span className='text-danger'>{this.state.errors.newPassword}</span><br /></div> :
                                         <small className='form-text text-muted'>Deje este campo vacio si no desea cambiar la contraseña</small>}
+
+                                        <center>
                                     <button className='btn btn-primary' disabled={this.state.error}>Actualizar</button>
-                                    {this.state.errorMessage ? <div><span className='danger'>{this.state.errorMessage}</span></div> : <div />}
+                                    </center>
+                                   {this.state.errorMessage ? <div><span className='danger'>{this.state.errorMessage}</span></div> : <div />}
                                 </div>
                                 :
                                 <div></div>
@@ -327,9 +339,9 @@ class Perfil extends React.Component {
                             <br />
 
                             <center>
-                            {this.state.miPerfil ? !this.state.editar ? <button type='submit' className='btn btn-primary' onClick={this.editarPerfil}>Editar</button> : <div /> : <div />}
+                                {this.state.miPerfil ? !this.state.editar ? <button type='submit' className='btn btn-primary' onClick={this.editarPerfil}>Editar</button> : <div /> : <div />}
                             </center>
-                        
+
                         </form>
 
                     </div>
