@@ -222,90 +222,92 @@ class Perfil extends React.Component {
         }
         return (
             this.state.perfil.tipoIdentificacion ?
-                <div>
-                    {this.state.miPerfil ? this.state.editar ? <h1>Editar Perfil</h1> : <h1>My Perfil</h1> : <h1>{this.state.perfil.usuario}</h1>}
-                    <form onSubmit={this.handleSubmit}>
-                        <label htmlFor="tipoIdentificacion">{this.state.perfil.tipoIdentificacion}: </label>
-                        <label htmlFor="numeroIdentificacion">{this.state.perfil.numeroIdentificacion}</label>
-                        <br />
-                        <input
-                            id="nombre"
-                            onChange={this.handleChange}
-                            value={this.state.perfil.nombre}
-                            disabled={!this.state.editar}
-                        />
-                        <br />
-                        {this.state.errors.nombre ? <div><span className='error'>{this.state.errors.nombre}</span><br /></div> : <div></div>}
-                        <input
-                            id="telefono"
-                            onChange={this.handleChange}
-                            value={this.state.perfil.telefono}
-                            disabled={!this.state.editar}
-                        />
-                        <br />
-                        {this.state.errors.telefono ? <div><span className='error'>{this.state.errors.telefono}</span><br /></div> : <div></div>}
-                        <input
-                            id="celular"
-                            onChange={this.handleChange}
-                            value={this.state.perfil.celular}
-                            disabled={!this.state.editar}
-                        />
-                        <br />
-                        {this.state.errors.celular ? <div><span className='error'>{this.state.errors.celular}</span><br /></div> : <div></div>}
-                        <input
-                            id="correo"
-                            onChange={this.handleChange}
-                            value={this.state.perfil.correo}
-                            disabled={!this.state.editar}
-                        />
-                        <br />
-                        {this.state.errors.correo ? <div><span className='error'>{this.state.errors.correo}</span><br /></div> : <div></div>}
-                        <input
-                            id="direccion"
-                            onChange={this.handleChange}
-                            value={this.state.perfil.direccion}
-                            disabled={!this.state.editar}
-                        />
-                        <br />
-                        {this.state.errors.direccion ? <div><span className='error'>{this.state.errors.direccion}</span><br /></div> : <div></div>}
-                        {this.state.editar ?
-                            <div>
-                                <label htmlFor="password">Contraseña actual</label>
-                                <input
-                                    id="password"
-                                    type="password"
-                                    onChange={this.handleChange}
-                                    onPaste={(e) => e.preventDefault()}
-                                    value={this.state.perfil.password}
-                                />
-                                <br />
-                                {this.state.errors.password ? <div><span className='error'>{this.state.errors.password}</span><br /></div> : <div></div>}
-                                <label htmlFor="newPassword">Contraseña nueva</label>
-                                <input
-                                    id="newPassword"
-                                    type="password"
-                                    onChange={this.handleChange}
-                                    onPaste={(e) => e.preventDefault()}
-                                    value={this.state.perfil.newPassword}
-                                />
-                                <br />
-                                {this.state.errors.newPassword ?
-                                    <div><span className='error'>{this.state.errors.newPassword}</span><br /></div> :
-                                    <div>Deje este campo vacio si no desea cambiar la contraseña</div>}
-                                <button disabled={this.state.error}>Actualizar</button>
-                                {this.state.errorMessage ? <div><span className='error'>{this.state.errorMessage}</span></div> : <div />}
-                            </div>
-                            :
-                            <div></div>
-                        }
-                    </form>
-                    {this.state.miPerfil ? !this.state.editar ? <button onClick={this.editarPerfil}>Editar</button> : <div /> : <div />}
-                    {this.state.miPerfil ? <div /> : 
-                    <div>
-                        <h1>Comentarios</h1>
-                        <Comentarios usuario={this.state.perfil.numeroIdentificacion} usuarioCreacion={this.props.id}></Comentarios>
+                <div className='container'>
+                    {this.state.miPerfil ? this.state.editar ? <h1 className='text-center'>Editar Perfil</h1> : <h1 className='text-center'>Mi Perfil</h1> : <h1>{this.state.perfil.usuario}</h1>}
+                    <div className='col'>
+                        <form className='form-group' onSubmit={this.handleSubmit}>
+                            <label htmlFor="tipoIdentificacion">{this.state.perfil.tipoIdentificacion}: </label>
+                            <label htmlFor="numeroIdentificacion">{this.state.perfil.numeroIdentificacion}</label>
+                            <input
+                                className='form-control'
+                                id="nombre"
+                                onChange={this.handleChange}
+                                value={this.state.perfil.nombre}
+                                disabled={!this.state.editar}
+                            />
+                            {this.state.errors.nombre ? <div><span className='text-danger'>{this.state.errors.nombre}</span><br /></div> : <div></div>}
+                            <input
+                                className='form-control'
+                                id="telefono"
+                                onChange={this.handleChange}
+                                value={this.state.perfil.telefono}
+                                disabled={!this.state.editar}
+                            />
+                            {this.state.errors.telefono ? <div><span className='text-danger'>{this.state.errors.telefono}</span><br /></div> : <div></div>}
+                            <input
+                                className='form-control'
+                                id="celular"
+                                onChange={this.handleChange}
+                                value={this.state.perfil.celular}
+                                disabled={!this.state.editar}
+                            />
+                            {this.state.errors.celular ? <div><span className='text-danger'>{this.state.errors.celular}</span><br /></div> : <div></div>}
+                            <input
+                                className='form-control'
+                                id="correo"
+                                onChange={this.handleChange}
+                                value={this.state.perfil.correo}
+                                disabled={!this.state.editar}
+                            />
+                            {this.state.errors.correo ? <div><span className='text-danger'>{this.state.errors.correo}</span><br /></div> : <div></div>}
+                            <input
+                                className='form-control'
+                                id="direccion"
+                                onChange={this.handleChange}
+                                value={this.state.perfil.direccion}
+                                disabled={!this.state.editar}
+                            />
+                            {this.state.errors.direccion ? <div><span className='text-danger'>{this.state.errors.direccion}</span><br /></div> : <div></div>}
+                            {this.state.editar ?
+                                <div>
+                                    <input
+                                        className='form-control'
+                                        id="password"
+                                        type="password"
+                                        placeholder='Contraseña actual'
+                                        onChange={this.handleChange}
+                                        onPaste={(e) => e.preventDefault()}
+                                        value={this.state.perfil.password}
+                                    />
+                                    {this.state.errors.password ? <div><span className='text-danger'>{this.state.errors.password}</span><br /></div> : <div></div>}
+                                    <input
+                                        className='form-control'
+                                        id="newPassword"
+                                        type="password"
+                                        placeholder='Contraseña nueva'
+                                        onChange={this.handleChange}
+                                        onPaste={(e) => e.preventDefault()}
+                                        value={this.state.perfil.newPassword}
+                                    />
+                                    {this.state.errors.newPassword ?
+                                        <div><span className='text-danger'>{this.state.errors.newPassword}</span><br /></div> :
+                                        <small className='form-text text-muted'>Deje este campo vacio si no desea cambiar la contraseña</small>}
+                                    <button className='btn btn-primary' disabled={this.state.error}>Actualizar</button>
+                                    {this.state.errorMessage ? <div><span className='danger'>{this.state.errorMessage}</span></div> : <div />}
+                                </div>
+                                :
+                                <div></div>
+                            }
+                            <br />
+                            {this.state.miPerfil ? !this.state.editar ? <button type='submit' className='btn btn-primary' onClick={this.editarPerfil}>Editar</button> : <div /> : <div />}
+                        </form>
+                    </div>
+                    {this.state.miPerfil ? <div /> :
+                        <div>
+                            <h1>Comentarios</h1>
+                            <Comentarios usuario={this.state.perfil.numeroIdentificacion} usuarioCreacion={this.props.id}></Comentarios>
                         </div>
-                        }
+                    }
                 </div> :
                 <div>... Cargando</div>
         );

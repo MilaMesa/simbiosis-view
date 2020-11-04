@@ -7,7 +7,7 @@ const ofertasAPI = {
             return response.json();
         }
         catch (error) {
-            console.error('There was an errorOcurrio un error consultado las ofertas!', { error });
+            console.error('Ocurrio un error consultado las ofertas!', { error });
         };
         return [];
     },
@@ -38,5 +38,45 @@ const ofertasAPI = {
         }
     }
 };
+
+export const insumosAPI = {
+    all: async () => {
+        try{
+            const response = await fetch(`${urlBase}insumo/all`);
+            return response.json();
+        }
+        catch (error) {
+            console.error('Ocurrido un error consultando los insumos', {error});
+            };
+        return [];
+    },
+    agotado:  async () => {
+        try{
+            const response = await fetch(`${urlBase}insumo/agotado`);
+            return response.json();
+        }
+        catch (error) {
+            console.error('Ocurrido un error consultando los insumos agotados', {error});
+            };
+        return [];
+    },
+    actualizar: async (codigo, cantidad) => {
+        try{
+            const response = await fetch(`${urlBase}insumo/${codigo}/actualizar/${cantidad}`,
+            {
+                method: 'POST',
+                body: '',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response.json();
+        }
+        catch (error) {
+            console.error('Ocurrido un error actualizando el insumo', {error});
+            };
+        return 0;
+    }
+}
 
 export default ofertasAPI;
