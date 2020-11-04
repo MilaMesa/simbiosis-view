@@ -61,9 +61,9 @@ class Iniciar extends React.Component {
 
     render() {
         return (
-            <div className='container'>
+            <div className='container asd'>
                 <center>
-                    <h2>Iniciar Sesion</h2>
+                    <h2>Iniciar Sesión</h2>
                 </center>
                 <div className='general'>
                     <form className='form-group' style={{ paddingTop: 25 }} onSubmit={this.handleSubmit}>
@@ -90,7 +90,7 @@ class Iniciar extends React.Component {
                         </div>
                         <br />
                         <center>
-                            <button className='btn btn-primary'>Iniciar sesion</button>
+                            <button className='btn btn-primary'>Iniciar sesión</button>
 
                             <div style={{ padding: 10 }}>
                                 {this.state.error ? <span className='text-danger'>{this.state.mensaje}</span> : <div />}

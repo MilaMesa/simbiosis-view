@@ -202,11 +202,7 @@ class CrearCuenta extends React.Component {
     render() {
         return (
 
-                <div className="general">
-
-                  
-
-
+                <div className="general asd">
                     <div>
                         <center>
                     <h2>Crear Cuenta</h2>

@@ -33,6 +33,7 @@ class Oferta extends React.Component {
                         <label >Fecha creacion: </label>
                         <div className='d-inline'>{` ${this.state.fecha}`}</div>
                     </div>
+                    < br />
                     <div>
                         <label >Usuario Creacion: </label>
                         <div className='d-inline'><Link to={`/perfil/${this.state.numeroIdentificacion}/${this.state.usuario}`}>{` ${this.state.usuario}`}</Link></div>

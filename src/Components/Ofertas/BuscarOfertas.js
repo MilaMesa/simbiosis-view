@@ -4,7 +4,7 @@ import OfertasApi from '../../api';
 import { validarTexto, validarVacio } from '../../Utils/Validaciones';
 import { TipoOferta } from './TipoOferta';
 import ofertasAPI from '../../api';
-
+import '../ConjuntoCss/Register.css'
 class BuscarOfertas extends React.Component {
     constructor(props) {
         super(props);
@@ -121,11 +121,11 @@ class BuscarOfertas extends React.Component {
                             onChange={this.handleChange}
                             value={this.state.tipoOferta}
                         >
+                            <option value='SE_CONFECCIONAN_MAMELUCOS'>{TipoOferta.SE_CONFECCIONAN_MAMELUCOS}</option>
                             <option value='CONFECCION_PANTALON'>{TipoOferta.CONFECCION_PANTALON}</option>
                             <option value='CONFECCION_ROPA_INTERIOR'>{TipoOferta.CONFECCION_ROPA_INTERIOR}</option>
                             <option value='CONFECCION_MAQUINA_PLANA'>{TipoOferta.CONFECCION_MAQUINA_PLANA}</option>
                             <option value='CONFECCION_PARA_DAMA'>{TipoOferta.CONFECCION_PARA_DAMA}</option>
-                            <option value='SE_CONFECCIONAN_MAMELUCOS'>{TipoOferta.SE_CONFECCIONAN_MAMELUCOS}</option>
                             <option value='CONFECCION_DE_TAPABOCAS'>{TipoOferta.CONFECCION_DE_TAPABOCAS}</option>
                             <option value='CONFECCION_DE_BEBE'>{TipoOferta.CONFECCION_DE_BEBE}</option>
                             <option value='CONFECCION_COBIJAS'>{TipoOferta.CONFECCION_COBIJAS}</option>
@@ -167,7 +167,7 @@ class BuscarOfertas extends React.Component {
                     <div className="list-group">{
                         this.state.ofertas.map(u => (
                             <div key={u.id} >
-                                <div className='col'>
+                                <div className='col NNN'>
                                     <Link className='list-group-item list-group-item-action flex-column align-items-start' to={`${this.props.match.url}/${u.id}`}>
                                         <div className='d-flex w-100 justify-content-between'>
                                             <h5 className="mb-1">{TipoOferta[u.tipoOferta]}</h5>
@@ -176,10 +176,11 @@ class BuscarOfertas extends React.Component {
                                         <p className="mb-1">{u.detalle.length < 26 ? u.detalle : `${u.detalle.substring(0, 25)}...`}</p>
                                         <small className="text-muted">{u.usuario}</small>
                                     </Link>
-                                    {this.state.numeroIdentificacion === u.numeroIdentificacion ? <span className='alert alert-danger d-flex' onClick={() => this.eliminarOferta(u.id)}>Eliminar oferta</span> : <span></span>}
+                                    {this.state.numeroIdentificacion === u.numeroIdentificacion ? <span className='Alets alert-danger d-flex' onClick={() => this.eliminarOferta(u.id)}>Eliminar oferta</span> : <span></span>}
                                 </div>
                             </div>
                         ))}</div>
+                    <br />
                 </div>
                 <br />
             </div>

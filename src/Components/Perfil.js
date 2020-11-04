@@ -224,7 +224,7 @@ class Perfil extends React.Component {
         }
         return (
             this.state.perfil.tipoIdentificacion ?
-                <div className='container'>
+                <div className='container asd'>
                     <center>
                         <img className='Tamaño ' src='../../ImagenesD/UsuarioM.png'></img>
                     </center>
