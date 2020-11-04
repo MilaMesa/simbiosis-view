@@ -15,7 +15,7 @@ class Oferta extends React.Component {
             usuario: '',
         };
     }
-//hola mundo
+
     componentDidMount() {
         ofertasAPI.get(this.state.id).then((response) =>{ 
             this.setState({...response});
