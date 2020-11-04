@@ -3,7 +3,21 @@ import { Link } from 'react-router-dom';
 import OfertasApi from '../../api';
 import { validarTexto, validarVacio } from '../../Utils/Validaciones';
 
-
+const TipoOferta = {
+    CONFECCION_MAQUINA_PLANA: "Se confecciona maquina plana",
+    CONFECCION_PANTALON: "Se confeccionan pantalones",
+    CONFECCION_ROPA_INTERIOR: "Se confecciona ropa interior",
+    CONFECCION_PARA_DAMA: "Se confecciona ropa dama",
+    CONFECCION_DE_TAPABOCAS: "Se confeccionan tapabocas",
+    CONFECCION_DE_BEBE: "Se confecciona ropa de bebe",
+    CONFECCION_COBIJAS: "Se confeccionan cobijas",
+    SOLO_ROPA_INTERIOR_PARA_BEBE_EN_ALGODON: "Solo ropa interior para bebe en algodon",
+    SE_CONFECCIONAN_MAMELUCOS: "Se confeccionan mamelucos",
+    SE_CONFECCIONAN_MEDIAS_PARA_ADULTOS: "Se confecciona medias para aulto",
+    SE_CONFECCIONA_DELANTALES: "Se confeccionan delantales",
+    SE_CONFECIONA_PANTALONES: "Se confeccionan pantalones",
+    SE_CONFECCIONAN_CORTINAS: "Se confeccionan cortinas"
+};
 
 class BuscarOfertas extends React.Component {
     constructor(props) {
@@ -100,19 +114,19 @@ class BuscarOfertas extends React.Component {
                             onChange={this.handleChange}
                             value={this.state.tipoOferta}
                         >
-                            <option value='CONFECCION_ROPA_INTERIOR'>confeccion ropa interior"T"</option>
-                            <option value='CONFECCION_MAQUINA_PLANA'>confeccion maquina plana"T"</option>
-                            <option value='CONFECCION_PANTALON'>confeccion pantalon"T"</option>
-                            <option value='CONFECCION_PARA_DAMA'>confeccion ropa dama"T"</option>
-                            <option value='CONFECCION_DE_TAPABOCAS'>confeccion tapabocas"T"</option>
-                            <option value='CONFECCION_DE_BEBE'>confeccion de bebe"T"</option>
-                            <option value='CONFECCION_COBIJAS'>confeccion cobijas"T"</option>
-                            <option value='SOLO_ROPA_INTERIOR_PARA_BEBE_EN_ALGODON'>solo ropa interior para bebe en algodon"P"</option>
-                            <option value='SE_CONFECCIONAN_MAMELUCOS'>se confeccionan mamelucos"P"</option>
-                            <option value='SE_CONFECCIONAN_MEDIAS_PARA_ADULTOS'>se confecciona medias para aulto"P"</option>
-                            <option value='SE_CONFECCIONA_DELANTALES'>se confeccionan delantales"P"</option>
-                            <option value='SE_CONFECIONA_PANTALONES'>se confecciona pantalones"P"</option>
-                            <option value='SE_CONFECCIONAN_CORTINAs'>se confeccionan cortinas"P"</option>
+                            <option value='CONFECCION_ROPA_INTERIOR'>{TipoOferta.CONFECCION_ROPA_INTERIOR}</option>
+                            <option value='CONFECCION_MAQUINA_PLANA'>{TipoOferta.CONFECCION_MAQUINA_PLANA}</option>
+                            <option value='CONFECCION_PANTALON'>{TipoOferta.CONFECCION_PANTALON}</option>
+                            <option value='CONFECCION_PARA_DAMA'>{TipoOferta.CONFECCION_PARA_DAMA}</option>
+                            <option value='CONFECCION_DE_TAPABOCAS'>{TipoOferta.CONFECCION_DE_TAPABOCAS}</option>
+                            <option value='CONFECCION_DE_BEBE'>{TipoOferta.CONFECCION_DE_BEBE}</option>
+                            <option value='CONFECCION_COBIJAS'>{TipoOferta.CONFECCION_COBIJAS}</option>
+                            <option value='SOLO_ROPA_INTERIOR_PARA_BEBE_EN_ALGODON'>{TipoOferta.SOLO_ROPA_INTERIOR_PARA_BEBE_EN_ALGODON}</option>
+                            <option value='SE_CONFECCIONAN_MAMELUCOS'>{TipoOferta.SE_CONFECCIONAN_MAMELUCOS}</option>
+                            <option value='SE_CONFECCIONAN_MEDIAS_PARA_ADULTOS'>{TipoOferta.SE_CONFECCIONAN_MEDIAS_PARA_ADULTOS}</option>
+                            <option value='SE_CONFECCIONA_DELANTALES'>{TipoOferta.SE_CONFECCIONA_DELANTALES}</option>
+                            <option value='SE_CONFECIONA_PANTALONES'>{TipoOferta.SE_CONFECIONA_PANTALONES}</option>
+                            <option value='SE_CONFECCIONAN_CORTINAS'>{TipoOferta.SE_CONFECCIONAN_CORTINAS}</option>
                         </select>
                         <label htmlFor="detalle">Detalle</label>
                         <textarea
@@ -131,12 +145,19 @@ class BuscarOfertas extends React.Component {
                 <h1>Buscar Ofertas</h1>
                 <div className='col'>
                     <div>Ofertas disponibles</div>
-                    <ul className='list-group'>{
+                    <div class="list-group">{
                         this.state.ofertas.map(u => (
-                            <li className='list-group-item d-flex justify-content-between align-items-center' key={u.id}>
-                                <Link to={`${this.props.match.url}/${u.id}`}>{u.detalle}</Link>
-                            </li>
-                        ))}</ul>
+                            <div key={u.id}>
+                                <Link className='list-group-item list-group-item-action flex-column align-items-start' to={`${this.props.match.url}/${u.id}`}>
+                                    <div className='d-flex w-100 justify-content-between'>
+                                        <h5 class="mb-1">{TipoOferta[u.tipoOferta]}</h5>
+                                        <small class="text-muted">{u.fecha}</small>
+                                    </div>
+                                    <p class="mb-1">{u.detalle}</p>
+                                    <small class="text-muted">{u.usuario}</small>
+                                </Link>
+                            </div>
+                        ))}</div>
                 </div>
                 <br />
             </div>

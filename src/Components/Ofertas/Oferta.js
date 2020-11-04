@@ -17,21 +17,25 @@ class Oferta extends React.Component {
     }
 
     componentDidMount() {
-        ofertasAPI.get(this.state.id).then((response) =>{ 
-            this.setState({...response});
+        ofertasAPI.get(this.state.id).then((response) => {
+            this.setState({ ...response });
         });
     }
 
     render() {
-        return <div>{
+        return <div className='container'>{
             this.state.detalle ?
-                <div>
-                    <h1>{this.state.tipoOferta}</h1>
+                <div className='col'>
+                    <h1 className='text-center'>{this.state.tipoOferta}</h1>
                     <p>{this.state.detalle}</p>
-                    <label>Fecha creacion: </label>
-                    <div>{this.state.fecha}</div>
-                    <label>Usuario Creacion: </label>
-                    <div><Link to={`/perfil/${this.state.numeroIdentificacion}/${this.state.usuario}`}>{this.state.usuario}</Link></div>
+                    <div >
+                        <label >Fecha creacion: </label>
+                        <div className='d-inline'>{` ${this.state.fecha}`}</div>
+                    </div>
+                    <div>
+                        <label >Usuario Creacion: </label>
+                        <div className='d-inline'><Link to={`/perfil/${this.state.numeroIdentificacion}/${this.state.usuario}`}>{` ${this.state.usuario}`}</Link></div>
+                    </div>
                 </div> :
                 <NotFound></NotFound>
         }</div>
