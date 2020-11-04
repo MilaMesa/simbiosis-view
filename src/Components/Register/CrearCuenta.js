@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import './Register.css'
 
 class CrearCuenta extends React.Component {
     constructor(props) {
@@ -166,10 +167,12 @@ class CrearCuenta extends React.Component {
             }
         }).then((response) => response.json())
             .then((data) => {
+                console.log({ data });
                 let errors = this.state.errors;
                 let mensaje = this.state.mensaje;
                 if (!data.error) {
                     this.props.onLogged(data.numeroIdentificacion, this.state.usuario);
+                    console.log({ data });
                 } else if (data.status === 409) {
                     errors.usuario = 'El usuario ya existe, por favor cambielo por uno nuevo';
                 } else if (data.status === 424) {
@@ -199,129 +202,172 @@ class CrearCuenta extends React.Component {
 
     render() {
         return (
-            <div className='container'>
-                <h1>Crear Cuenta</h1>
-                <div className='container'>
-                    <div className='col'>
-                        <form onSubmit={this.handleSubmit} className='form-group'>
-                            <label htmlFor="tipoIdentificacion">Tipo Identificacion</label>
-                            <select
-                                className='form-control'
-                                id="tipoIdentificacion"
-                                onChange={this.handleChange}
-                                value={this.state.tipoIdentificacion}
-                            >
-                                <option value='CC'>Cedula de ciudadania</option>
-                                <option value='CE'>Cedula de extrangeria</option>
-                                <option value='TI'>Tarjeta de identidad</option>
-                                <option value='PAS'>Pasaporte</option>
-                                <option value='PEP'>Permiso especial de permanencia</option>
-                            </select>
-                            <label htmlFor="numeroIdentificacion">Numero Identificacion</label>
-                            <input
-                                className='form-control'
-                                id="numeroIdentificacion"
-                                onChange={this.handleChange}
-                                value={this.state.numeroIdentificacion}
-                            />
-                            {this.state.errors.numeroIdentificacion ? <div><span className='text-danger'>{this.state.errors.numeroIdentificacion}</span><br /></div> : <div></div>}
-                            <label htmlFor="nombre">Nombre</label>
-                            <input
-                                className='form-control'
-                                id="nombre"
-                                onChange={this.handleChange}
-                                value={this.state.nombre}
-                            />
-                            {this.state.errors.nombre ? <div><span className='text-danger'>{this.state.errors.nombre}</span><br /></div> : <div></div>}
-                            <label htmlFor="apellido">Apellido</label>
-                            <input
-                                className='form-control'
-                                id="apellido"
-                                onChange={this.handleChange}
-                                value={this.state.apellido}
-                            />
-                            {this.state.errors.apellido ? <div> <span className='text-danger'>{this.state.errors.apellido}</span><br /></div> : <div></div>}
-                            <label htmlFor="telefono">Telefono fijo</label>
-                            <input
-                                className='form-control'
-                                id="telefono"
-                                onChange={this.handleChange}
-                                value={this.state.telefono}
-                            />
-                            {this.state.errors.telefono ? <div><span className='text-danger'>{this.state.errors.telefono}</span><br /></div> : <div></div>}
-                            <label htmlFor="celular">Celular</label>
-                            <input
-                                className='form-control'
-                                id="celular"
-                                onChange={this.handleChange}
-                                value={this.state.celular}
-                            />
-                            {this.state.errors.celular ? <div><span className='text-danger'>{this.state.errors.celular}</span><br /></div> : <div></div>}
-                            <label htmlFor="correo">Correo</label>
-                            <input
-                                className='form-control'
-                                id="correo"
-                                onChange={this.handleChange}
-                                value={this.state.correo}
-                            />
-                            {this.state.errors.correo ? <div><span className='text-danger'>{this.state.errors.correo}</span><br /></div> : <div></div>}
-                            <label htmlFor="direccion">Direccion</label>
-                            <input
-                                className='form-control'
-                                id="direccion"
-                                onChange={this.handleChange}
-                                value={this.state.direccion}
-                            />
-                            {this.state.errors.direccion ? <div><span className='text-danger'>{this.state.errors.direccion}</span><br /></div> : <div></div>}
-                            <label htmlFor="tipoUsuario">Tipo Usuario</label>
-                            <select
-                                className='form-control'
-                                id='tipoUsuario'
-                                onChange={this.handleChange}
-                                value={this.state.tipoUsuario}>
-                                <option value='TALLER'>Taller</option>
-                                <option value='PROVEEDOR'>Proveedor</option>
-                            </select>
-                            {
-                                this.state.tipoUsuario === 'PROVEEDOR' ?
+
+                <div className="general">
+
+                  
+
+
+                    <div>
+                        <center>
+                    <h3>Crear Cuenta</h3>
+                    </center>
+                        <div className='col'>
+                            <form onSubmit={this.handleSubmit} className='form-group'>
+
+                                <div>
+                                    <label className="laders" htmlFor="tipoIdentificacion">Tipo Identificación</label>
+
+                                    <select className="Seleccion"
+
+                                        id="tipoIdentificacion"
+                                        onChange={this.handleChange}
+                                        value={this.state.tipoIdentificacion}
+                                    >
+                                        <option value='CC'>Cedula de ciudadania</option>
+                                        <option value='CE'>Cedula de extrangeria</option>
+                                        <option value='TI'>Tarjeta de identidad</option>
+                                        <option value='PAS'>Pasaporte</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="laders" htmlFor="numeroIdentificacion">Numero Identificación</label>
+                                    <input className="Seleccion"
+
+                                        id="numeroIdentificacion"
+                                        onChange={this.handleChange}
+                                        value={this.state.numeroIdentificacion}
+                                    />
+                                    {this.state.errors.numeroIdentificacion ? <div><span className='text-danger'>{this.state.errors.numeroIdentificacion}</span><br /></div> : <div></div>}
+                                </div>
+
+
+                                <div>
+                                    <label className="laders" htmlFor="nombre">Nombre</label>
+                                    <input className="Seleccion"
+                                        id="nombre"
+                                        onChange={this.handleChange}
+                                        value={this.state.nombre}
+                                    />
+                                    {this.state.errors.nombre ? <div><span className='text-danger'>{this.state.errors.nombre}</span><br /></div> : <div></div>}
+                                </div>
+
+
+                                <div>
+                                    <label className="laders" htmlFor="apellido">Apellido</label>
+                                    <input className="Seleccion"
+                                        id="apellido"
+                                        onChange={this.handleChange}
+                                        value={this.state.apellido}
+                                    />
+                                    {this.state.errors.apellido ? <div> <span className='text-danger'>{this.state.errors.apellido}</span><br /></div> : <div></div>}
+                                </div>
+
+                                <div>
+                                    <label className="laders" htmlFor="telefono">Teléfono fijo</label>
+                                    <input className="Seleccion"
+                                        id="telefono"
+                                        onChange={this.handleChange}
+                                        value={this.state.telefono}
+                                    />
+                                    {this.state.errors.telefono ? <div><span className='text-danger'>{this.state.errors.telefono}</span><br /></div> : <div></div>}
+                                </div>
+
+                                <div>
+                                    <label className="laders" htmlFor="celular">Celular</label>
+                                    <input className="Seleccion"
+                                        id="celular"
+                                        onChange={this.handleChange}
+                                        value={this.state.celular}
+                                    />
+                                    {this.state.errors.celular ? <div><span className='text-danger'>{this.state.errors.celular}</span><br /></div> : <div></div>}
+                                </div>
+
+                                <div>
+                                    <label className="laders" htmlFor="correo">Correo</label>
+                                    <input className="Seleccion"
+                                        id="correo"
+                                        onChange={this.handleChange}
+                                        value={this.state.correo}
+                                    />
+                                    {this.state.errors.correo ? <div><span className='text-danger'>{this.state.errors.correo}</span><br /></div> : <div></div>}
+                                </div>
+
+                                <div>
+                                    <label className="laders" htmlFor="direccion">Dirección</label>
+                                    <input className="Seleccion"
+                                        id="direccion"
+                                        onChange={this.handleChange}
+                                        value={this.state.direccion}
+                                    />
+                                    {this.state.errors.direccion ? <div><span className='text-danger'>{this.state.errors.direccion}</span><br /></div> : <div></div>}
+                                </div>
+
+                                <div>
+                                    <label className="laders" htmlFor="tipoUsuario">Tipo Usuario</label>
+                                    <select className="Seleccion"
+                                        id='tipoUsuario'
+                                        onChange={this.handleChange}
+                                        value={this.state.tipoUsuario}>
+                                        <option value='TALLER'>Taller</option>
+                                        <option value='PROVEEDOR'>Proveedor</option>
+                                        <option value='ADMINISTRADOR'>Administrador</option>
+                                    </select>
+                                    {
+                                        this.state.tipoUsuario === 'PROVEEDOR' ?
+                                            <div>
+
+                                                <div>
+                                                    <label className="laders" htmlFor="nombreEmpresa">Nombre Empresa</label>
+                                                    <input className="Seleccion"
+                                                        id="nombreEmpresa"
+                                                        onChange={this.handleChange}
+                                                        value={this.state.nombreEmpresa}
+                                                    />
+                                                    <br />
+                                                    {this.state.errors.nombreEmpresa ? <div><span className='text-danger'>{this.state.errors.nombreEmpresa}</span><br /></div> : <div></div>}
+                                                </div>
+                                            </div>
+                                            :
+                                            <div />
+                                    }
+
                                     <div>
-                                        <label htmlFor="nombreEmpresa">nombreEmpresa</label>
-                                        <input
-                                            id="nombreEmpresa"
+                                        <label className="laders" htmlFor="usuario">Nombre de Usuario</label>
+                                        <input className="Seleccion"
+
+                                            id="usuario"
                                             onChange={this.handleChange}
-                                            value={this.state.nombreEmpresa}
+                                            value={this.state.usuario}
                                         />
-                                        <br />
-                                        {this.state.errors.nombreEmpresa ? <div><span className='text-danger'>{this.state.errors.nombreEmpresa}</span><br /></div> : <div></div>}
+                                        {this.state.errors.usuario ? <div><span className='text-danger'>{this.state.errors.usuario}</span><br /></div> : <div></div>}
                                     </div>
-                                    :
-                                    <div />
-                            }
-                            <label htmlFor="usuario">usuario</label>
-                            <input
-                                className='form-control'
-                                id="usuario"
-                                onChange={this.handleChange}
-                                value={this.state.usuario}
-                            />
-                            {this.state.errors.usuario ? <div><span className='text-danger'>{this.state.errors.usuario}</span><br /></div> : <div></div>}
-                            <label htmlFor="password">Contraseña</label>
-                            <input
-                                className='form-control'
-                                id="password"
-                                type="password"
-                                onChange={this.handleChange}
-                                value={this.state.password}
-                            />
-                            {this.state.errors.password ? <div><span className='text-danger'>{this.state.errors.password}</span><br /></div> : <div></div>}
-                            <br />
-                            <button className='btn btn-primary' disabled={this.state.error}>Registrarse</button>
-                        </form>
-                        {this.state.mensaje.length > 0 ? <div><span className='text-danger'>{this.state.mensaje}</span></div> : <div />}
+
+                                    <div>
+                                        <label className="laders" htmlFor="password">Contraseña</label>
+                                        <input className="Seleccion"
+
+                                            id="password"
+                                            type="password"
+                                            onChange={this.handleChange}
+                                            value={this.state.password}
+                                        />
+                                        {this.state.errors.password ? <div><span className='text-danger'>{this.state.errors.password}</span><br /></div> : <div></div>}
+                                    </div>
+                                </div>
+                                <br />
+                                <center>
+                                    <button className='btn btn-primary' disabled={this.state.error}>Registrarse</button>
+                                </center>
+
+                            </form>
+                            {this.state.mensaje.length > 0 ? <div><span className='text-danger'>{this.state.mensaje}</span></div> : <div />}
+                        </div>
+
                     </div>
-                    <li className='btn btn-link'><Link to="/">Inicia sesion</Link></li>
-                </div>
+
             </div>
+
         );
     }
 };

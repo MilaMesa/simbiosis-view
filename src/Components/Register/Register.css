@@ -1,0 +1,14 @@
+.general{
+    display: flex;
+    justify-content: center;
+}
+
+.laders{
+  width:170px;
+}
+
+.Seleccion{
+  width: 250px;
+  height: 25px;
+}
+
