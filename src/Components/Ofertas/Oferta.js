@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import NotFound from '../NotFound';
 import ofertasAPI from '../../api';
+import { TipoOferta } from './TipoOferta';
 
 class Oferta extends React.Component {
     constructor(props) {
@@ -26,7 +27,7 @@ class Oferta extends React.Component {
         return <div className='container'>{
             this.state.detalle ?
                 <div className='col'>
-                    <h1 className='text-center'>{this.state.tipoOferta}</h1>
+                    <h2 className='text-center'>{TipoOferta[this.state.tipoOferta]}</h2>
                     <p>{this.state.detalle}</p>
                     <div >
                         <label >Fecha creacion: </label>
