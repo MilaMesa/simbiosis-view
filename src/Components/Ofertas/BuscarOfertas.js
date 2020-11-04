@@ -4,7 +4,7 @@ import OfertasApi from '../../api';
 import { validarTexto, validarVacio } from '../../Utils/Validaciones';
 
 const TipoOferta = {
-    CONFECCION_MAQUINA_PLANA: "Se confecciona maquina plana",
+    CONFECCION_MAQUINA_PLANA: "Se confecciona en maquina plana",
     CONFECCION_PANTALON: "Se confeccionan pantalones",
     CONFECCION_ROPA_INTERIOR: "Se confecciona ropa interior",
     CONFECCION_PARA_DAMA: "Se confecciona ropa dama",
@@ -153,7 +153,7 @@ class BuscarOfertas extends React.Component {
                                         <h5 class="mb-1">{TipoOferta[u.tipoOferta]}</h5>
                                         <small class="text-muted">{u.fecha}</small>
                                     </div>
-                                    <p class="mb-1">{u.detalle}</p>
+                                    <p class="mb-1">{u.detalle.length < 26 ? u.detalle : `${u.detalle.substring(0,25)}...`}</p>
                                     <small class="text-muted">{u.usuario}</small>
                                 </Link>
                             </div>
