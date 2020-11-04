@@ -111,7 +111,7 @@ class BuscarOfertas extends React.Component {
     render() {
         return (
             <div className='container'>
-                <h1>Crear Oferta</h1>
+                <h2>Crear Oferta</h2>
                 <div className='col'>
                     <form className='form-group' onSubmit={this.handleSubmit}>
                         <label htmlFor="tipoOferta">Tipo Oferta</label>
@@ -149,7 +149,7 @@ class BuscarOfertas extends React.Component {
                     {this.state.error ? <span className='text-danger'>{this.state.mensaje}</span> : <div />}
                     {this.state.id ? <span className='text-info'>La oferta fue creada con el id: {this.state.id}</span> : <div />}
                 </div>
-                <h1>Buscar Ofertas</h1>
+                <h2>Buscar Ofertas</h2>
                 <div className='col'>
                     <div>Ofertas disponibles</div>
                     <div className="list-group">{

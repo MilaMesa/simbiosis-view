@@ -1,6 +1,7 @@
 import React from 'react';
 import NotFound from './NotFound';
 import Comentarios from './Comentarios';
+import './ConjuntoCss/Register.css'
 
 class Perfil extends React.Component {
     constructor(props) {
@@ -17,6 +18,7 @@ class Perfil extends React.Component {
                 direccion: '',
                 newPassword: '',
                 password: '',
+                tipoDeUsuario: props.match.params.tipoDeUsuario,
             },
             notFound: false,
             error: true,
@@ -29,6 +31,7 @@ class Perfil extends React.Component {
                 direccion: '',
                 newPassword: '',
                 password: '',
+                tipoDeUsuario: '',
             },
             errorMessage: '',
             editar: false,
@@ -222,13 +225,20 @@ class Perfil extends React.Component {
         return (
             this.state.perfil.tipoIdentificacion ?
                 <div className='container'>
-                    {this.state.miPerfil ? this.state.editar ? <h1 className='text-center'>Editar Perfil</h1> : <h1 className='text-center'>Mi Perfil</h1> : <h1>{this.state.perfil.usuario}</h1>}
+                    <center>
+                        <img className='Tamaño ' src='../../ImagenesD/UsuarioM.png'></img>
+                    </center>
+                    {this.state.miPerfil ? this.state.editar ? <h2 className='text-center'>Editar Perfil</h2> : <h2 className='text-center'>Mi Perfil</h2> : <h2>{this.state.perfil.usuario}</h2>}
                     <div className='col'>
+                        <center>
                         <form className='form-group' onSubmit={this.handleSubmit}>
-                            <label htmlFor="tipoIdentificacion">{this.state.perfil.tipoIdentificacion}: </label>
+                            <label  htmlFor="tipoIdentificacion">{this.state.perfil.tipoIdentificacion}: </label>
                             <label htmlFor="numeroIdentificacion">{this.state.perfil.numeroIdentificacion}</label>
+                            
+                            <label htmlFor="TipoDeUsuario">{this.state.perfil.TipoDeUsuario}</label>
+                            
                             <input
-                                className='form-control'
+                                className='form-control2'
                                 id="nombre"
                                 onChange={this.handleChange}
                                 value={this.state.perfil.nombre}
@@ -236,7 +246,7 @@ class Perfil extends React.Component {
                             />
                             {this.state.errors.nombre ? <div><span className='text-danger'>{this.state.errors.nombre}</span><br /></div> : <div></div>}
                             <input
-                                className='form-control'
+                                className='form-control2'
                                 id="telefono"
                                 onChange={this.handleChange}
                                 value={this.state.perfil.telefono}
@@ -244,7 +254,7 @@ class Perfil extends React.Component {
                             />
                             {this.state.errors.telefono ? <div><span className='text-danger'>{this.state.errors.telefono}</span><br /></div> : <div></div>}
                             <input
-                                className='form-control'
+                                className='form-control2'
                                 id="celular"
                                 onChange={this.handleChange}
                                 value={this.state.perfil.celular}
@@ -252,7 +262,7 @@ class Perfil extends React.Component {
                             />
                             {this.state.errors.celular ? <div><span className='text-danger'>{this.state.errors.celular}</span><br /></div> : <div></div>}
                             <input
-                                className='form-control'
+                                className='form-control2'
                                 id="correo"
                                 onChange={this.handleChange}
                                 value={this.state.perfil.correo}
@@ -260,7 +270,7 @@ class Perfil extends React.Component {
                             />
                             {this.state.errors.correo ? <div><span className='text-danger'>{this.state.errors.correo}</span><br /></div> : <div></div>}
                             <input
-                                className='form-control'
+                                className='form-control2'
                                 id="direccion"
                                 onChange={this.handleChange}
                                 value={this.state.perfil.direccion}
@@ -270,7 +280,7 @@ class Perfil extends React.Component {
                             {this.state.editar ?
                                 <div>
                                     <input
-                                        className='form-control'
+                                        className='form-control2'
                                         id="password"
                                         type="password"
                                         placeholder='Contraseña actual'
@@ -280,7 +290,7 @@ class Perfil extends React.Component {
                                     />
                                     {this.state.errors.password ? <div><span className='text-danger'>{this.state.errors.password}</span><br /></div> : <div></div>}
                                     <input
-                                        className='form-control'
+                                        className='form-control2'
                                         id="newPassword"
                                         type="password"
                                         placeholder='Contraseña nueva'
@@ -300,6 +310,7 @@ class Perfil extends React.Component {
                             <br />
                             {this.state.miPerfil ? !this.state.editar ? <button type='submit' className='btn btn-primary' onClick={this.editarPerfil}>Editar</button> : <div /> : <div />}
                         </form>
+                        </center>
                     </div>
                     {this.state.miPerfil ? <div /> :
                         <div>

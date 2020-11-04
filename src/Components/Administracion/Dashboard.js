@@ -1,7 +1,6 @@
 import React from 'react';
 import { insumosAPI } from '../../api';
 
-
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
@@ -18,7 +17,7 @@ class Dashboard extends React.Component {
 
     render() {
         return <div className='container'>
-            <h1>Inventario de insumos</h1>
+            <h2>Inventario de insumos</h2>
             <div className='col'>
                 <table className="table">
                     <thead>

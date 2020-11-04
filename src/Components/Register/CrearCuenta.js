@@ -1,5 +1,4 @@
 import React from 'react';
-
 import '../ConjuntoCss/Register.css'
 
 class CrearCuenta extends React.Component {
@@ -210,7 +209,7 @@ class CrearCuenta extends React.Component {
 
                     <div>
                         <center>
-                    <h3>Crear Cuenta</h3>
+                    <h2>Crear Cuenta</h2>
                     </center>
                         <div className='col'>
                             <form onSubmit={this.handleSubmit} className='form-group'>
