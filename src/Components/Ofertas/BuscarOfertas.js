@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import OfertasApi from '../../api';
 import { validarTexto, validarVacio } from '../../Utils/Validaciones';
-import {TipoOferta } from './TipoOferta';
+import { TipoOferta } from './TipoOferta';
+import ofertasAPI from '../../api';
 
 class BuscarOfertas extends React.Component {
     constructor(props) {
@@ -18,6 +19,7 @@ class BuscarOfertas extends React.Component {
             tipoOferta: 'CC',
             detalle: '',
             ofertas: [],
+            actualizar: false,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,7 +40,7 @@ class BuscarOfertas extends React.Component {
         }
         OfertasApi.crear(publicacion).then(creada => {
             if (creada.id) {
-                this.setState({ id: creada.id });
+                this.setState({ id: creada.id, actualizar: true });
             } else {
                 let mensaje = this.state.mensaje;
                 if (creada.status === 400) {
@@ -51,6 +53,16 @@ class BuscarOfertas extends React.Component {
         });
     };
 
+    eliminarOferta(id) {
+        ofertasAPI.eliminar(id)
+            .then((response) => {
+                if (response.ok) {
+                    this.setState({ actualizar: true });
+                } else {
+                    this.setState({ error: true, mensaje: 'No fue posible eliminar la oferta' });
+                }
+            });
+    }
 
     handleChange(change) {
         const campo = change.target.id;
@@ -86,6 +98,16 @@ class BuscarOfertas extends React.Component {
         OfertasApi.all().then((response) => response).then((response) => this.setState({ ofertas: response }));
     }
 
+    componentDidUpdate() {
+        if (this.state.actualizar) {
+            OfertasApi.all().then((response) => response).then((response) => {
+                response.sort((a, b) => b.date - a.date);
+                this.setState({ ofertas: response });
+            });
+            this.setState({ actualizar: false });
+        }
+    }
+
     render() {
         return (
             <div className='container'>
@@ -99,15 +121,15 @@ class BuscarOfertas extends React.Component {
                             onChange={this.handleChange}
                             value={this.state.tipoOferta}
                         >
+                            <option value='CONFECCION_PANTALON'>{TipoOferta.CONFECCION_PANTALON}</option>
                             <option value='CONFECCION_ROPA_INTERIOR'>{TipoOferta.CONFECCION_ROPA_INTERIOR}</option>
                             <option value='CONFECCION_MAQUINA_PLANA'>{TipoOferta.CONFECCION_MAQUINA_PLANA}</option>
-                            <option value='CONFECCION_PANTALON'>{TipoOferta.CONFECCION_PANTALON}</option>
                             <option value='CONFECCION_PARA_DAMA'>{TipoOferta.CONFECCION_PARA_DAMA}</option>
+                            <option value='SE_CONFECCIONAN_MAMELUCOS'>{TipoOferta.SE_CONFECCIONAN_MAMELUCOS}</option>
                             <option value='CONFECCION_DE_TAPABOCAS'>{TipoOferta.CONFECCION_DE_TAPABOCAS}</option>
                             <option value='CONFECCION_DE_BEBE'>{TipoOferta.CONFECCION_DE_BEBE}</option>
                             <option value='CONFECCION_COBIJAS'>{TipoOferta.CONFECCION_COBIJAS}</option>
                             <option value='SOLO_ROPA_INTERIOR_PARA_BEBE_EN_ALGODON'>{TipoOferta.SOLO_ROPA_INTERIOR_PARA_BEBE_EN_ALGODON}</option>
-                            <option value='SE_CONFECCIONAN_MAMELUCOS'>{TipoOferta.SE_CONFECCIONAN_MAMELUCOS}</option>
                             <option value='SE_CONFECCIONAN_MEDIAS_PARA_ADULTOS'>{TipoOferta.SE_CONFECCIONAN_MEDIAS_PARA_ADULTOS}</option>
                             <option value='SE_CONFECCIONA_DELANTALES'>{TipoOferta.SE_CONFECCIONA_DELANTALES}</option>
                             <option value='SE_CONFECIONA_PANTALONES'>{TipoOferta.SE_CONFECIONA_PANTALONES}</option>
@@ -120,27 +142,30 @@ class BuscarOfertas extends React.Component {
                             onChange={this.handleChange}
                             value={this.state.detalle}
                         />
-                        {this.state.errors.detalle ? <div><span className='error'>{this.state.errors.detalle}</span></div> : <div />}
+                        {this.state.errors.detalle ? <div><span className='text-danger'>{this.state.errors.detalle}</span></div> : <div />}
                         <br />
                         <button className='btn btn-primary' disabled={this.state.error}>Crear</button>
                     </form>
-                    {this.state.error ? <span className='error'>{this.state.mensaje}</span> : <div />}
-                    {this.state.id ? <span className='info'>La oferta fue creada con el id: {this.state.id}</span> : <div />}
+                    {this.state.error ? <span className='text-danger'>{this.state.mensaje}</span> : <div />}
+                    {this.state.id ? <span className='text-info'>La oferta fue creada con el id: {this.state.id}</span> : <div />}
                 </div>
                 <h1>Buscar Ofertas</h1>
                 <div className='col'>
                     <div>Ofertas disponibles</div>
-                    <div class="list-group">{
+                    <div className="list-group">{
                         this.state.ofertas.map(u => (
-                            <div key={u.id}>
-                                <Link className='list-group-item list-group-item-action flex-column align-items-start' to={`${this.props.match.url}/${u.id}`}>
-                                    <div className='d-flex w-100 justify-content-between'>
-                                        <h5 class="mb-1">{TipoOferta[u.tipoOferta]}</h5>
-                                        <small class="text-muted">{u.fecha}</small>
-                                    </div>
-                                    <p class="mb-1">{u.detalle.length < 26 ? u.detalle : `${u.detalle.substring(0,25)}...`}</p>
-                                    <small class="text-muted">{u.usuario}</small>
-                                </Link>
+                            <div key={u.id} >
+                                <div className='col'>
+                                    <Link className='list-group-item list-group-item-action flex-column align-items-start' to={`${this.props.match.url}/${u.id}`}>
+                                        <div className='d-flex w-100 justify-content-between'>
+                                            <h5 className="mb-1">{TipoOferta[u.tipoOferta]}</h5>
+                                            <small className="text-muted">{u.fecha}</small>
+                                        </div>
+                                        <p className="mb-1">{u.detalle.length < 26 ? u.detalle : `${u.detalle.substring(0, 25)}...`}</p>
+                                        <small className="text-muted">{u.usuario}</small>
+                                    </Link>
+                                    {this.state.numeroIdentificacion === u.numeroIdentificacion ? <span className='alert alert-danger d-flex' onClick={() => this.eliminarOferta(u.id)}>Eliminar oferta</span> : <span></span>}
+                                </div>
                             </div>
                         ))}</div>
                 </div>

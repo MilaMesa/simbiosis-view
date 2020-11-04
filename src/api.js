@@ -36,45 +36,61 @@ const ofertasAPI = {
             console.log('Ocurrio un error obteniendo la oferta' + id, { error });
             return error ? error : {};
         }
-    }
-};
-
-export const insumosAPI = {
-    all: async () => {
-        try{
-            const response = await fetch(`${urlBase}insumo/all`);
-            return response.json();
-        }
-        catch (error) {
-            console.error('Ocurrido un error consultando los insumos', {error});
-            };
-        return [];
     },
-    agotado:  async () => {
-        try{
-            const response = await fetch(`${urlBase}insumo/agotado`);
-            return response.json();
-        }
-        catch (error) {
-            console.error('Ocurrido un error consultando los insumos agotados', {error});
-            };
-        return [];
-    },
-    actualizar: async (codigo, cantidad) => {
-        try{
-            const response = await fetch(`${urlBase}insumo/${codigo}/actualizar/${cantidad}`,
-            {
+    eliminar: async (id) => {
+        try {
+            const response = await fetch(`${urlBase}oferta/eliminar/${id}`, {
                 method: 'POST',
                 body: '',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
+            return response;
+        }
+        catch (error) {
+            console.log('Ocurrio un error eliminano la oferta' + id, { error });
+            return error ? error : {};
+        }
+    }
+};
+
+export const insumosAPI = {
+    all: async () => {
+        try {
+            const response = await fetch(`${urlBase}insumo/all`);
             return response.json();
         }
         catch (error) {
-            console.error('Ocurrido un error actualizando el insumo', {error});
-            };
+            console.error('Ocurrido un error consultando los insumos', { error });
+        };
+        return [];
+    },
+    agotado: async () => {
+        try {
+            const response = await fetch(`${urlBase}insumo/agotado`);
+            return response.json();
+        }
+        catch (error) {
+            console.error('Ocurrido un error consultando los insumos agotados', { error });
+        };
+        return [];
+    },
+    actualizar: async (codigo, cantidad) => {
+        try {
+            const response = await fetch(`${urlBase}insumo/${codigo}/actualizar/${cantidad}`,
+                {
+                    method: 'POST',
+                    body: '',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+            return response.json();
+        }
+        catch (error) {
+            console.error('Ocurrido un error actualizando el insumo', { error });
+        };
         return 0;
     }
 }

@@ -52,7 +52,6 @@ class Perfil extends React.Component {
                 }
 
                 perfil = { ...perfil, ...data };
-                console.log({ ...this.state });
                 this.setState({ perfil, notFound });
             })
             .catch(error => {
