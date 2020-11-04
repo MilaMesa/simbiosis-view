@@ -60,31 +60,34 @@ class Iniciar extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className='container'>
                 <h1>Iniciar Sesion</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="usuario">Usuario</label>
-                    <input
-                        id="usuario"
-                        onChange={this.handleChangeUsuario}
-                        value={this.state.usuario}
-                    />
-                    <br />
-                    <label htmlFor="password">Contraseña</label>
-                    <input
-                        id="password"
-                        type="password"
-                        onChange={this.handleChangePassword}
-                        onPaste={(e)=>e.preventDefault()}
-                        value={this.state.password}
-                    />
-                    <br />
-                    <button>Iniciar sesion</button>
-                </form>
-                {this.state.error ? <span>{this.state.mensaje}</span> : <div />}
-                <div>
-                    <h3>No estas registrado</h3>
-                    <li><Link to="/registrate">registrate</Link></li>
+                <div className='col'>
+                    <form className='form-group' onSubmit={this.handleSubmit}>
+                        <label htmlFor="usuario">Usuario</label>
+                        <input
+                            className="form-control"
+                            id="usuario"
+                            onChange={this.handleChangeUsuario}
+                            value={this.state.usuario}
+                        />
+                        <label htmlFor="password">Contraseña</label>
+                        <input
+                            className="form-control"
+                            id="password"
+                            type="password"
+                            onChange={this.handleChangePassword}
+                            onPaste={(e) => e.preventDefault()}
+                            value={this.state.password}
+                        />
+                        <br/>
+                        <button className='btn btn-primary'>Iniciar sesion</button>
+                    </form>
+                    {this.state.error ? <span className='text-danger'>{this.state.mensaje}</span> : <div />}
+                </div>
+                <div className='col'>
+                    <span>No estas registrado?</span>
+                    <li className='btn btn-link'><Link to="/registrate">Registrate!</Link></li>
                 </div>
             </div>
         );

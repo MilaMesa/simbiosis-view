@@ -89,12 +89,13 @@ class BuscarOfertas extends React.Component {
 
     render() {
         return (
-            <div>
-                <div>
-                    <h1>Crear Oferta</h1>
-                    <form onSubmit={this.handleSubmit}>
+            <div className='container'>
+                <h1>Crear Oferta</h1>
+                <div className='col'>
+                    <form className='form-group' onSubmit={this.handleSubmit}>
                         <label htmlFor="tipoOferta">Tipo Oferta</label>
                         <select
+                            className="form-control"
                             id="tipoOferta"
                             onChange={this.handleChange}
                             value={this.state.tipoOferta}
@@ -113,31 +114,31 @@ class BuscarOfertas extends React.Component {
                             <option value='SE_CONFECIONA_PANTALONES'>se confecciona pantalones"P"</option>
                             <option value='SE_CONFECCIONAN_CORTINAs'>se confeccionan cortinas"P"</option>
                         </select>
-                        <br />
                         <label htmlFor="detalle">Detalle</label>
                         <textarea
+                            className="form-control"
                             id="detalle"
                             onChange={this.handleChange}
                             value={this.state.detalle}
                         />
-                        <br />
                         {this.state.errors.detalle ? <div><span className='error'>{this.state.errors.detalle}</span></div> : <div />}
-                        <button disabled={this.state.error}>Crear</button>
+                        <br />
+                        <button className='btn btn-primary' disabled={this.state.error}>Crear</button>
                     </form>
                     {this.state.error ? <span className='error'>{this.state.mensaje}</span> : <div />}
                     {this.state.id ? <span className='info'>La oferta fue creada con el id: {this.state.id}</span> : <div />}
                 </div>
-                <div>
-                    <h1>Buscar Ofertas</h1>
+                <h1>Buscar Ofertas</h1>
+                <div className='col'>
                     <div>Ofertas disponibles</div>
-                    <ul>{
+                    <ul className='list-group'>{
                         this.state.ofertas.map(u => (
-                            <li key={u.id}>
+                            <li className='list-group-item d-flex justify-content-between align-items-center' key={u.id}>
                                 <Link to={`${this.props.match.url}/${u.id}`}>{u.detalle}</Link>
                             </li>
                         ))}</ul>
                 </div>
-
+                <br />
             </div>
         );
     }

@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 const Header = (props) => (
   <div>
     <nav>
-      <ul>
-        <li><Link to={`/perfil/${props.id}/${props.userName}`}>Mi Perfil</Link></li>
-        <li><Link to="/ofertas">Ofertas</Link></li>
-        <li><Link to="/about">Acerca de la aplicación</Link></li>
-      </ul>
-      <button onClick={() => props.onUnLogged()} >Cerrar sesion</button>
+      <ul className='nav justify-content-center'>
+        <li className='nav-item'><Link className='nav-link' to={`/perfil/${props.id}/${props.userName}`}>Mi Perfil</Link></li>
+        <li className='nav-item'><Link className='nav-link' to="/ofertas">Ofertas</Link></li>
+        <li className='nav-item'><Link className='nav-link' to="/admin">Administrar</Link></li>
+        <li className='nav-item'><Link className='nav-link' to="/about">Acerca de la aplicación</Link></li>
+        <button className='btn nav-item' onClick={() => props.onUnLogged()} >Cerrar sesion</button>
+      </ul>      
     </nav>
   </div>
 );
-//hola mudno
 
 export default Header;
