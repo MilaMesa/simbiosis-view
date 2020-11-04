@@ -1,0 +1,15 @@
+
+.Icono{
+  width: 400px;
+  height: 137px;
+}
+
+.general{
+    display: flex;
+    justify-content: center;
+}
+
+.titulos{
+    width: 200px;
+
+}

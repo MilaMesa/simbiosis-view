@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import './Register.css';
 
 class CrearCuenta extends React.Component {
     constructor(props) {
@@ -108,7 +109,8 @@ class CrearCuenta extends React.Component {
             state.correo.length > 0 && state.errors.correo === '' &&
             state.apellido.length > 0 && state.errors.apellido === '' &&
             ((state.tipoUsuario === 'PROVEEDOR' && state.nombreEmpresa.length > 0 && state.errors.nombreEmpresa === '')
-                || state.tipoUsuario === 'TALLER')
+                || state.tipoUsuario === 'TALLER'
+                || state.tipoUsuario === 'ADMINISTRADOR')
         ) {
             return false;
         } else {
@@ -124,7 +126,7 @@ class CrearCuenta extends React.Component {
     validarNumerico(name, value) {
         const textoRegex = RegExp(/^\d+$/i);
         if (value.length > 0) {
-            return textoRegex.test(value) ? '' : 'El campo ' + name + ' debe contener solo numeros.\n';
+            return textoRegex.test(value) ? '' : '\nEl campo ' + name + ' debe contener solo numeros.\n';
         }
         else {
             return '';
@@ -144,7 +146,7 @@ class CrearCuenta extends React.Component {
     }
 
     validarCorreo(name, value) {
-        const validEmailRegex = RegExp(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+        const validEmailRegex = RegExp(/^(([^<>()[\],;:\s@"]+(\.[^<>()[\],;:\s@"]+)*)|(".+))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\\.,;:\s@"]{2,})$/i);
         return validEmailRegex.test(value)
             ? ''
             : 'El campo ' + name + ' no es valido';
@@ -200,123 +202,167 @@ class CrearCuenta extends React.Component {
 
     render() {
         return (
-            <div>
-                <h1>Crear Cuenta</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="tipoIdentificacion">Tipo Identificacion</label>
-                    <select
-                        id="tipoIdentificacion"
-                        onChange={this.handleChange}
-                        value={this.state.tipoIdentificacion}
-                    >
-                        <option value='CC'>Cedula de ciudadania</option>
-                        <option value='CE'>Cedula de extrangeria</option>
-                        <option value='TI'>Tarjeta de identidad</option>
-                        <option value='PAS'>Pasaporte</option>
-                        <option value='PEP'>Permiso especial de permanencia</option>
-                    </select>
-                    <br />
-                    <label htmlFor="numeroIdentificacion">Numero Identificacion</label>
-                    <input
-                        id="numeroIdentificacion"
-                        onChange={this.handleChange}
-                        value={this.state.numeroIdentificacion}
-                    />
-                    <br />
-                    {this.state.errors.numeroIdentificacion ? <div><span className='danger'>{this.state.errors.numeroIdentificacion}</span><br /></div> : <div></div>}
-                    <label htmlFor="nombre">Nombre</label>
-                    <input
-                        id="nombre"
-                        onChange={this.handleChange}
-                        value={this.state.nombre}
-                    />
-                    <br />
-                    {this.state.errors.nombre ? <div><span className='danger'>{this.state.errors.nombre}</span><br /></div> : <div></div>}
-                    <label htmlFor="apellido">Apellido</label>
-                    <input
-                        id="apellido"
-                        onChange={this.handleChange}
-                        value={this.state.apellido}
-                    />
-                    <br />
-                    {this.state.errors.apellido ? <div> <span className='danger'>{this.state.errors.apellido}</span><br /></div> : <div></div>}
-                    <label htmlFor="telefono">Telefono fijo</label>
-                    <input
-                        id="telefono"
-                        onChange={this.handleChange}
-                        value={this.state.telefono}
-                    />
-                    <br />
-                    {this.state.errors.telefono ? <div><span className='danger'>{this.state.errors.telefono}</span><br /></div> : <div></div>}
-                    <label htmlFor="celular">Celular</label>
-                    <input
-                        id="celular"
-                        onChange={this.handleChange}
-                        value={this.state.celular}
-                    />
-                    <br />
-                    {this.state.errors.celular ? <div><span className='danger'>{this.state.errors.celular}</span><br /></div> : <div></div>}
-                    <label htmlFor="correo">Correo</label>
-                    <input
-                        id="correo"
-                        onChange={this.handleChange}
-                        value={this.state.correo}
-                    />
-                    <br />
-                    {this.state.errors.correo ? <div><span className='danger'>{this.state.errors.correo}</span><br /></div> : <div></div>}
-                    <label htmlFor="direccion">Direccion</label>
-                    <input
-                        id="direccion"
-                        onChange={this.handleChange}
-                        value={this.state.direccion}
-                    />
-                    <br />
-                    {this.state.errors.direccion ? <div><span className='danger'>{this.state.errors.direccion}</span><br /></div> : <div></div>}
-                    <label htmlFor="tipoUsuario">Tipo Usuario</label>
-                    <select
-                        id='tipoUsuario'
-                        onChange={this.handleChange}
-                        value={this.state.tipoUsuario}>
-                        <option value='TALLER'>Taller</option>
-                        <option value='PROVEEDOR'>Proveedor</option>
-                    </select>
-                    {
-                        this.state.tipoUsuario === 'PROVEEDOR' ?
-                            <div>
-                                <label htmlFor="nombreEmpresa">nombreEmpresa</label>
-                                <input
-                                    id="nombreEmpresa"
-                                    onChange={this.handleChange}
-                                    value={this.state.nombreEmpresa}
-                                />
-                                <br />
-                                {this.state.errors.nombreEmpresa ? <div><span className='danger'>{this.state.errors.nombreEmpresa}</span><br /></div> : <div></div>}
-                            </div>
-                            :
-                            <div />
-                    }
-                    <label htmlFor="usuario">usuario</label>
-                    <input
-                        id="usuario"
-                        onChange={this.handleChange}
-                        value={this.state.usuario}
-                    />
-                    <br />
-                    {this.state.errors.usuario ? <div><span className='danger'>{this.state.errors.usuario}</span><br /></div> : <div></div>}
-                    <label htmlFor="password">Contraseña</label>
-                    <input
-                        id="password"
-                        type="password"
-                        onChange={this.handleChange}
-                        value={this.state.password}
-                    />
-                    <br />
-                    {this.state.errors.password ? <div><span className='danger'>{this.state.errors.password}</span><br /></div> : <div></div>}
-                    <button disabled={this.state.error}>Registrarse</button>
-                </form>
-                {this.state.mensaje.length > 0 ? <div><span className='danger'>{this.state.mensaje}</span></div> : <div />}
-                <li><Link to="/">Inicia sesion</Link></li>
-            </div>
+
+
+            <div className="general">
+                <div>
+
+                    <img className="Icono" src="ImagenesD/LogoFinal.png" alt="Logo">
+                    </img>
+
+
+                    <h1>Crear Cuenta MD0.0l</h1>
+                    <form onSubmit={this.handleSubmit} style={{ width: 550 }}>
+                        <div>
+                            <label className="titulos" htmlFor="tipoIdentificacion">Tipo Identificación</label>
+                            <select
+                                id="tipoIdentificacion"
+                                onChange={this.handleChange}
+                                value={this.state.tipoIdentificación}>
+
+                                <option value='CC'>Cedula de ciudadania</option>
+                                <option value='CE'>Cedula de extrangeria</option>
+                                <option value='TI'>Tarjeta de identidad</option>
+                                <option value='PAS'>Pasaporte</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label className="titulos" htmlFor="numeroIdentificacion">Numero Identificación</label>
+                            <input
+                                id="numeroIdentificacion"
+                                onChange={this.handleChange}
+                                value={this.state.numeroIdentificacion}
+                            />
+                            {this.state.errors.numeroIdentificacion ? <div><span className='danger'>{this.state.errors.numeroIdentificacion}</span><br /></div> : <div></div>}
+
+                        </div>
+
+                        <div>
+                            <label className="titulos" htmlFor="nombre">Nombre</label>
+                            <input
+                                id="nombre"
+                                onChange={this.handleChange}
+                                value={this.state.nombre}
+                            />
+                            {this.state.errors.nombre ? <div><span className='danger'>{this.state.errors.nombre}</span><br /></div> : <div></div>}
+
+                        </div>
+
+                        <div>
+                            <label className="titulos" htmlFor="apellido">Apellido</label>
+                            <input
+                                id="apellido"
+                                onChange={this.handleChange}
+                                value={this.state.apellido}
+                            />
+                            <br />
+                            {this.state.errors.apellido ? <div> <span className='danger'>{this.state.errors.apellido}</span><br /></div> : <div></div>}
+                        </div>
+
+                        <div>
+
+                            <label className="titulos" htmlFor="telefono">Teléfono fijo</label>
+                            <input
+                                id="telefono"
+                                onChange={this.handleChange}
+                                value={this.state.telefono}
+                            />
+
+                            {this.state.errors.telefono ? <div><span className='danger'>{this.state.errors.telefono}</span><br /></div> : <div></div>}
+                        </div>
+
+                        <div>
+                            <label className="titulos" htmlFor="celular">Celular</label>
+                            <input
+                                id="celular"
+                                onChange={this.handleChange}
+                                value={this.state.celular}
+                            />
+                            {this.state.errors.celular ? <div><span className='danger'>{this.state.errors.celular}</span><br /></div> : <div></div>}
+                        </div>
+
+                        <div>
+                            <label className="titulos" htmlFor="correo">Correo</label>
+                            <input
+                                id="correo"
+                                onChange={this.handleChange}
+                                value={this.state.correo}
+                            />
+
+                            {this.state.errors.correo ? <div><span className='danger'>{this.state.errors.correo}</span><br /></div> : <div></div>}
+                        </div>
+
+                        <div>
+                            <label className="titulos" htmlFor="direccion">Dirección</label>
+                            <input
+                                id="direccion"
+                                onChange={this.handleChange}
+                                value={this.state.direccion}
+                            />
+                            {this.state.errors.direccion ? <div><span className='danger'>{this.state.errors.direccion}</span><br /></div> : <div></div>}
+                        </div>
+
+                        <div>
+                            <label className="titulos" htmlFor="tipoUsuario">Tipo Usuario</label>
+                            <select
+                                id='tipoUsuario'
+                                onChange={this.handleChange}
+                                value={this.state.tipoUsuario}>
+                                <option value='TALLER'>Taller</option>
+                                <option value='PROVEEDOR'>Proveedor</option>
+                                <option value='ADMINISTRADOR'>Administrador</option>
+                            </select>
+                            {
+                                this.state.tipoUsuario === 'PROVEEDOR' ?
+                                    <div>
+                                        <label className="titulos" htmlFor="nombreEmpresa">Nombre Empresa</label>
+                                        <input
+                                            id="nombreEmpresa"
+                                            onChange={this.handleChange}
+                                            value={this.state.nombreEmpresa}
+                                        />
+                                        <br />
+                                        {this.state.errors.nombreEmpresa ? <div><span className='danger'>{this.state.errors.nombreEmpresa}</span><br /></div> : <div></div>}
+                                    </div>
+                                    :
+                                    <div />
+                            }
+                        </div>
+
+                        <div>
+                            <label className="titulos" htmlFor="usuario">usuario</label>
+                            <input
+                                id="usuario"
+                                onChange={this.handleChange}
+                                value={this.state.usuario}
+                            />
+                            <br />
+                            {this.state.errors.usuario ? <div><span className='danger'>{this.state.errors.usuario}</span><br /></div> : <div></div>}
+                        </div>
+
+                        <div>
+                            <label className="titulos" htmlFor="password">Contraseña</label>
+                            <input
+                                id="password"
+                                type="password"
+                                onChange={this.handleChange}
+                                value={this.state.password}
+                            />
+                            <br />
+                            {this.state.errors.password ? <div><span className='danger'>{this.state.errors.password}</span><br /></div> : <div></div>}
+                        </div>
+
+
+
+                        <button disabled={this.state.error}>Registrarse</button>
+                    </form>
+                    {this.state.mensaje.length > 0 ? <div><span className='danger'>{this.state.mensaje}</span></div> : <div />}
+                    
+                </div>
+            </div> 
+
+
         );
     }
 };
