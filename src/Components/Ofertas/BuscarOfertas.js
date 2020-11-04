@@ -149,7 +149,19 @@ class BuscarOfertas extends React.Component {
                     {this.state.error ? <span className='text-danger'>{this.state.mensaje}</span> : <div />}
                     {this.state.id ? <span className='text-info'>La oferta fue creada con el id: {this.state.id}</span> : <div />}
                 </div>
-                <h2>Buscar Ofertas</h2>
+            
+              
+                <table> <br /> 
+                    <tr>
+                        <td> < img style ={{height:200}} src ="imagenesV/CARRITO.JPEG" ></img> <br /> </td>
+                       
+                        <td> <br />   <h2>Buscar Ofertas</h2>
+                            Los usuarios tiene la facilidad de buscar,crear y eliminar una oferta que se haya creado,
+                            con el objetivo de que los usuarios disfruten de las mejores ofertas .<br />
+                        </td> 
+                    </tr>
+                </table>
+
                 <div className='col'>
                     <div>Ofertas disponibles</div>
                     <div className="list-group">{

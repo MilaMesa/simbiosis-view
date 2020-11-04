@@ -11,6 +11,7 @@ const Header = (props) => (
         <li className='nav-item'><Link className='nav-link' to="/about">Acerca de la aplicación</Link></li>
       </ul>
     </nav>
+    <hr width="5000" ></hr> 
   </div>
 );
 
