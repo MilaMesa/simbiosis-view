@@ -7,6 +7,10 @@
   width:180px;
 }
 
+.laders3{
+  width:75px;
+}
+
 .Mensaje{
   max-width: 420px;
 }
@@ -26,8 +30,8 @@
 }
 
 .form-control2 {
+  justify-self: center;
   width: 250px;
-  display: block;
   height: calc(1.5em + .75rem + 2px);
   padding: .375rem .75rem;
   font-size: 1rem;

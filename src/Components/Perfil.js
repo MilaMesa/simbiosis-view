@@ -18,7 +18,7 @@ class Perfil extends React.Component {
                 direccion: '',
                 newPassword: '',
                 password: '',
-                tipoDeUsuario: props.match.params.tipoDeUsuario,
+                tipoDeUsuario: '',
             },
             notFound: false,
             error: true,
@@ -229,53 +229,70 @@ class Perfil extends React.Component {
                         <img className='Tamaño ' src='../../ImagenesD/UsuarioM.png'></img>
                     </center>
                     {this.state.miPerfil ? this.state.editar ? <h2 className='text-center'>Editar Perfil</h2> : <h2 className='text-center'>Mi Perfil</h2> : <h2>{this.state.perfil.usuario}</h2>}
-                    <div className='col'>
-                        <center>
+                    <div className="general">
+                        
+                        
                         <form className='form-group' onSubmit={this.handleSubmit}>
-                            <label  htmlFor="tipoIdentificacion">{this.state.perfil.tipoIdentificacion}: </label>
+                            <label htmlFor="tipoIdentificacion">{this.state.perfil.tipoIdentificacion}: </label>
                             <label htmlFor="numeroIdentificacion">{this.state.perfil.numeroIdentificacion}</label>
-                            
                             <label htmlFor="TipoDeUsuario">{this.state.perfil.TipoDeUsuario}</label>
-                            
-                            <input
-                                className='form-control2'
-                                id="nombre"
-                                onChange={this.handleChange}
-                                value={this.state.perfil.nombre}
-                                disabled={!this.state.editar}
-                            />
-                            {this.state.errors.nombre ? <div><span className='text-danger'>{this.state.errors.nombre}</span><br /></div> : <div></div>}
-                            <input
-                                className='form-control2'
-                                id="telefono"
-                                onChange={this.handleChange}
-                                value={this.state.perfil.telefono}
-                                disabled={!this.state.editar}
-                            />
-                            {this.state.errors.telefono ? <div><span className='text-danger'>{this.state.errors.telefono}</span><br /></div> : <div></div>}
-                            <input
-                                className='form-control2'
-                                id="celular"
-                                onChange={this.handleChange}
-                                value={this.state.perfil.celular}
-                                disabled={!this.state.editar}
-                            />
-                            {this.state.errors.celular ? <div><span className='text-danger'>{this.state.errors.celular}</span><br /></div> : <div></div>}
-                            <input
-                                className='form-control2'
-                                id="correo"
-                                onChange={this.handleChange}
-                                value={this.state.perfil.correo}
-                                disabled={!this.state.editar}
-                            />
-                            {this.state.errors.correo ? <div><span className='text-danger'>{this.state.errors.correo}</span><br /></div> : <div></div>}
-                            <input
-                                className='form-control2'
-                                id="direccion"
-                                onChange={this.handleChange}
-                                value={this.state.perfil.direccion}
-                                disabled={!this.state.editar}
-                            />
+
+
+                            <div>
+                                 <label className="laders3" htmlFor="nombre">Nombre</label>
+                                <input
+                                    className='form-control2'
+                                    id="nombre"
+                                    onChange={this.handleChange}
+                                    value={this.state.perfil.nombre}
+                                    disabled={!this.state.editar}
+                                />
+                                {this.state.errors.nombre ? <div><span className='text-danger'>{this.state.errors.nombre}</span><br /></div> : <div></div>}
+                            </div>
+                           
+                            <div> <label className="laders3" htmlFor="telefono">Telefono</label>
+                                <input
+                                    className='form-control2'
+                                    id="telefono"
+                                    onChange={this.handleChange}
+                                    value={this.state.perfil.telefono}
+                                    disabled={!this.state.editar}
+                                />
+                                {this.state.errors.telefono ? <div><span className='text-danger'>{this.state.errors.telefono}</span><br /></div> : <div></div>}
+                            </div>
+
+                            <div> <label className="laders3" htmlFor="celular">Celular</label>
+                                <input
+                                    className='form-control2'
+                                    id="celular"
+                                    onChange={this.handleChange}
+                                    value={this.state.perfil.celular}
+                                    disabled={!this.state.editar}
+                                />
+                                {this.state.errors.celular ? <div><span className='text-danger'>{this.state.errors.celular}</span><br /></div> : <div></div>}
+                            </div>
+
+                            <div> <label className="laders3" htmlFor="correo">Correo</label>
+                                <input
+                                    className='form-control2'
+                                    id="correo"
+                                    onChange={this.handleChange}
+                                    value={this.state.perfil.correo}
+                                    disabled={!this.state.editar}
+                                />
+                                {this.state.errors.correo ? <div><span className='text-danger'>{this.state.errors.correo}</span><br /></div> : <div></div>}
+                            </div>
+
+                            <div> <label className="laders3" htmlFor="direccion">Dirección</label>
+                                <input
+                                    className='form-control2'
+                                    id="direccion"
+                                    onChange={this.handleChange}
+                                    value={this.state.perfil.direccion}
+                                    disabled={!this.state.editar}
+                                />
+
+                            </div>
                             {this.state.errors.direccion ? <div><span className='text-danger'>{this.state.errors.direccion}</span><br /></div> : <div></div>}
                             {this.state.editar ?
                                 <div>
@@ -308,9 +325,13 @@ class Perfil extends React.Component {
                                 <div></div>
                             }
                             <br />
+
+                            <center>
                             {this.state.miPerfil ? !this.state.editar ? <button type='submit' className='btn btn-primary' onClick={this.editarPerfil}>Editar</button> : <div /> : <div />}
+                            </center>
+                        
                         </form>
-                        </center>
+
                     </div>
                     {this.state.miPerfil ? <div /> :
                         <div>
