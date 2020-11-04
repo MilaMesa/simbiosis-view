@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import '../ConjuntoCss/Register.css'
 
 class Iniciar extends React.Component {
     constructor(props) {
@@ -51,7 +52,7 @@ class Iniciar extends React.Component {
                 (error) => {
                     this.setState({
                         error: true,
-                        mensaje: 'Ocurrio un error con el servicio de login por favor intente mas tarde'
+                        mensaje: 'Ocurrio un error con el servicio de login.'
                     })
                     console.log(error);
                 }
@@ -61,35 +62,56 @@ class Iniciar extends React.Component {
     render() {
         return (
             <div className='container'>
-                <h1>Iniciar Sesion</h1>
-                <div className='col'>
-                    <form className='form-group' onSubmit={this.handleSubmit}>
-                        <label htmlFor="usuario">Usuario</label>
-                        <input
-                            className="form-control"
-                            id="usuario"
-                            onChange={this.handleChangeUsuario}
-                            value={this.state.usuario}
-                        />
-                        <label htmlFor="password">Contraseña</label>
-                        <input
-                            className="form-control"
-                            id="password"
-                            type="password"
-                            onChange={this.handleChangePassword}
-                            onPaste={(e) => e.preventDefault()}
-                            value={this.state.password}
-                        />
-                        <br/>
-                        <button className='btn btn-primary'>Iniciar sesion</button>
+                <center>
+                    <h2>Iniciar Sesion</h2>
+                </center>
+                <div className='general'>
+                    <form className='form-group' style={{ paddingTop: 25 }} onSubmit={this.handleSubmit}>
+                        <div>
+
+                            <label className="laders2" htmlFor="usuario">Usuario</label>
+                            <input className="Seleccion"
+                                id="usuario"
+                                onChange={this.handleChangeUsuario}
+                                value={this.state.usuario}
+                            />
+                        </div>
+
+                        <div>
+
+                            <label className="laders2" htmlFor="password">Contraseña</label>
+                            <input className="Seleccion"
+                                id="password"
+                                type="password"
+                                onChange={this.handleChangePassword}
+                                onPaste={(e) => e.preventDefault()}
+                                value={this.state.password}
+                            />
+                        </div>
+                        <br />
+                        <center>
+                            <button className='btn btn-primary'>Iniciar sesion</button>
+
+                            <div style={{ padding: 10 }}>
+                                {this.state.error ? <span className='text-danger'>{this.state.mensaje}</span> : <div />}
+                            </div>
+                        </center>
                     </form>
-                    {this.state.error ? <span className='text-danger'>{this.state.mensaje}</span> : <div />}
+
                 </div>
-                <div className='col'>
-                    <span>No estas registrado?</span>
-                    <li className='btn btn-link'><Link to="/registrate">Registrate!</Link></li>
-                </div>
+                <center>
+                    <div className='col'>
+                        <div>
+                            <span>No estas registrado?</span>
+                        </div>
+                        <div>
+                            <li className='btn btn-link'><Link to="/registrate">Registrate!</Link></li>
+                        </div>
+                    </div>
+                </center>
+
             </div>
+
         );
     }
 }

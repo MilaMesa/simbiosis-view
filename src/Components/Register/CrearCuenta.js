@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from "react-router-dom";
-import './Register.css'
+
+import '../ConjuntoCss/Register.css'
 
 class CrearCuenta extends React.Component {
     constructor(props) {
@@ -126,7 +126,7 @@ class CrearCuenta extends React.Component {
     validarNumerico(name, value) {
         const textoRegex = RegExp(/^\d+$/i);
         if (value.length > 0) {
-            return textoRegex.test(value) ? '' : '\nEl campo ' + name + ' debe contener solo numeros.\n';
+            return textoRegex.test(value) ? '' : ' El campo ' + name + ' debe contener solo numeros.\n';
         }
         else {
             return '';
@@ -233,7 +233,7 @@ class CrearCuenta extends React.Component {
                                 <div>
                                     <label className="laders" htmlFor="numeroIdentificacion">Numero Identificación</label>
                                     <input className="Seleccion"
-
+                                        type="number"
                                         id="numeroIdentificacion"
                                         onChange={this.handleChange}
                                         value={this.state.numeroIdentificacion}
@@ -266,6 +266,7 @@ class CrearCuenta extends React.Component {
                                 <div>
                                     <label className="laders" htmlFor="telefono">Teléfono fijo</label>
                                     <input className="Seleccion"
+                                        type="number"
                                         id="telefono"
                                         onChange={this.handleChange}
                                         value={this.state.telefono}
@@ -276,6 +277,7 @@ class CrearCuenta extends React.Component {
                                 <div>
                                     <label className="laders" htmlFor="celular">Celular</label>
                                     <input className="Seleccion"
+                                        type="number"
                                         id="celular"
                                         onChange={this.handleChange}
                                         value={this.state.celular}
@@ -286,6 +288,7 @@ class CrearCuenta extends React.Component {
                                 <div>
                                     <label className="laders" htmlFor="correo">Correo</label>
                                     <input className="Seleccion"
+                                        type="email"
                                         id="correo"
                                         onChange={this.handleChange}
                                         value={this.state.correo}
@@ -342,7 +345,7 @@ class CrearCuenta extends React.Component {
                                         />
                                         {this.state.errors.usuario ? <div><span className='text-danger'>{this.state.errors.usuario}</span><br /></div> : <div></div>}
                                     </div>
-
+                                    
                                     <div>
                                         <label className="laders" htmlFor="password">Contraseña</label>
                                         <input className="Seleccion"

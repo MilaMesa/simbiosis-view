@@ -4,11 +4,20 @@
 }
 
 .laders{
-  width:170px;
+  width:180px;
+}
+
+.Mensaje{
+  max-width: 420px;
+}
+
+.laders2{
+  width:100px;
+  SIZE:25;
 }
 
 .Seleccion{
-  width: 250px;
+  width: 260px;
   height: 25px;
 }
 
