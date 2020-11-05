@@ -82,10 +82,12 @@ class Comentarios extends React.Component {
 
     render() {
         return <div className='container'>
-            <textarea className='form-control' id="comentario" name="comentario" rows="10" cols="40" onChange={this.handleChange}
-                value={this.state.comentario} />
-            <button className='btn btn-primary' disabled={0 === this.state.comentario.length} onClick={this.crearComentario}>Enviar</button>
-            {this.state.mensajeError ? <span>{this.state.mensajeError}</span> : <div />}
+            <div className='col'>
+                <textarea className='form-control' id="comentario" name="comentario" rows="10" cols="40" onChange={this.handleChange}
+                    value={this.state.comentario} />
+                <button className='btn btn-primary' disabled={0 === this.state.comentario.length} onClick={this.crearComentario}>Enviar</button>
+                {this.state.mensajeError ? <span>{this.state.mensajeError}</span> : <div />}
+            </div>
             <div className='col'>
                 <div className="list-group">
                     {this.state.comentarios.map(u => (
