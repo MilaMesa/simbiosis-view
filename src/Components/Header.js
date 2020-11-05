@@ -10,7 +10,7 @@ const Header = (props) => (
         <li className='nav-item'><Link className='nav-link' to="/ofertas">Ofertas</Link></li>
         <li className='nav-item'><Link className='nav-link' to="/admin">Administrar</Link></li>
         <li className='nav-item'><Link className='nav-link' to="/about">Acerca de la aplicación</Link></li>
-        <button className='btn nav-item' onClick={() => props.onUnLogged()} >Cerrar sesión</button>
+        <li className='nav-item' onClick={() => props.onUnLogged()} ><Link className='nav-link' to="/">Cerrar sesión</Link></li>
       </ul>      
     </nav>
   </div>

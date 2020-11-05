@@ -11,9 +11,9 @@ const Main = ({ id, userName }) => (
   <div>
     <Switch>
       <Route exact path="/" render={(props) => <Home {...props} id={id} userName={userName} />} />
-      <Route path="/perfil/:id/:userName" render={(props) => <Perfil {...props} id={id} userName={userName}/>} />
+      <Route path="/perfil/:id/:userName" render={(props) => <Perfil {...props} id={id} userName={userName} />} />
       <Route path="/ofertas" render={(props) => <Ofertas {...props} id={id} userName={userName} />} />
-      <Route path="/admin" render={(props) => <Dashboard {...props} />} />
+      <Route path="/admin" render={(props) => <Dashboard {...props} id={id} userName={userName} />} />
       <Route path="/about" component={About} />
       <Route component={NotFound} />
     </Switch>

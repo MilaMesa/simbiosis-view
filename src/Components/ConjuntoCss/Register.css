@@ -55,3 +55,8 @@
   border: 1px solid transparent;
   border-radius: .25rem;
 }
+
+.modal-body {
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
+}

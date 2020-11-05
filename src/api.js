@@ -92,6 +92,23 @@ export const insumosAPI = {
             console.error('Ocurrido un error actualizando el insumo', { error });
         };
         return 0;
+    },
+    crear: async (insumo) => {
+        try {
+            const response = await fetch(`${urlBase}insumo/crear`,
+            {
+                method: 'POST',
+                body: JSON.stringify(insumo),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        return response.json();
+        }
+        catch (error) {
+            console.error('Ocurrido un error creando el insumo', { error });
+            return error ? error : {};
+        }
     }
 }
 

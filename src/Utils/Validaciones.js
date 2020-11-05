@@ -7,7 +7,7 @@ export function validarTexto(value) {
 export function validarNumerico(value) {
     const textoRegex = RegExp(/^\d+$/i);
     if (value.length > 0) {
-        return textoRegex.test(value) ? '' : 'El campo debe contener solo numeros.\n';
+        return textoRegex.test(value) ? '' : 'El campo debe contener solo numeros positivos.\n';
     }
     else {
         return '';
