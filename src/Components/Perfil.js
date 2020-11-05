@@ -1,7 +1,7 @@
 import React from 'react';
 import NotFound from './NotFound';
 import Comentarios from './Comentarios';
-import './ConjuntoCss/Register.css'
+//import './ConjuntoCss/Register.css'
 
 class Perfil extends React.Component {
     constructor(props) {
@@ -224,10 +224,8 @@ class Perfil extends React.Component {
         }
         return (
             this.state.perfil.tipoIdentificacion ?
-                <div className='container asd'>
-                    <center>
+                <div className='container text-center asd'>
                         <img className='Tamaño ' src='../../ImagenesD/UsuarioM.png'></img>
-                    </center>
                     {this.state.miPerfil ? this.state.editar ? <h2 className='text-center'>Editar Perfil</h2> : <h2 className='text-center'>Mi Perfil</h2> : <h2>{this.state.perfil.usuario}</h2>}
                     <div className="general">
 

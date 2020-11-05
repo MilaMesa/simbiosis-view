@@ -81,35 +81,41 @@ class Comentarios extends React.Component {
     }
 
     render() {
-        return <div>
-            <textarea id="comentario" name="comentario" rows="10" cols="40" onChange={this.handleChange}
+        return <div className='container'>
+            <textarea className='form-control' id="comentario" name="comentario" rows="10" cols="40" onChange={this.handleChange}
                 value={this.state.comentario} />
-            <button disabled={0 === this.state.comentario.length} onClick={this.crearComentario}>Enviar</button>
+            <button className='btn btn-primary' disabled={0 === this.state.comentario.length} onClick={this.crearComentario}>Enviar</button>
             {this.state.mensajeError ? <span>{this.state.mensajeError}</span> : <div />}
-            <div>
-                <ul>
+            <div className='col'>
+                <div className="list-group">
                     {this.state.comentarios.map(u => (
-                        <li key={u.id}>
-                            <div>{u.nombreUsuarioCreacion}</div>
-                            <p>{u.mensaje}</p>
-                            <div>{u.fecha}</div>
-                            <form className="valoracion">
-                                <p className="clasificacion">
-                                    <input id={`${u.id}-radio1`} type="radio" onClick={this.cambioValoracion} name="estrellas" value={5} checked={u.valoracion === 5} readOnly={true} />
-                                    <label htmlFor={`${u.id}-radio1`}>★</label>
-                                    <input id={`${u.id}-radio2`} type="radio" onClick={this.cambioValoracion} name="estrellas" value={4} checked={u.valoracion === 4} readOnly={true} />
-                                    <label htmlFor={`${u.id}-radio2`}>★</label>
-                                    <input id={`${u.id}-radio3`} type="radio" onClick={this.cambioValoracion} name="estrellas" value={3} checked={u.valoracion === 3} readOnly={true} />
-                                    <label htmlFor={`${u.id}-radio3`}>★</label>
-                                    <input id={`${u.id}-radio4`} type="radio" onClick={this.cambioValoracion} name="estrellas" value={2} checked={u.valoracion === 2} readOnly={true} />
-                                    <label htmlFor={`${u.id}-radio4`}>★</label>
-                                    <input id={`${u.id}-radio5`} type="radio" onClick={this.cambioValoracion} name="estrellas" value={1} checked={u.valoracion === 1} readOnly={true} />
-                                    <label htmlFor={`${u.id}-radio5`}>★</label>
-                                </p>
-                            </form>
-                        </li>
+                        <div key={u.id} className='col'>
+                            <div className='list-group-item list-group-item-action flex-column align-items-start'>
+                                <div className='d-flex w-100 justify-content-between'>
+                                    <h5 className="mb-1">{u.nombreUsuarioCreacion}</h5>
+                                    <small className="text-muted">{u.fecha}</small>
+                                </div>
+                                <p className="mb-1">{u.mensaje}</p>
+                                <small className="text-muted">
+                                    <form className="valoracion">
+                                        <p className="clasificacion">
+                                            <input id={`${u.id}-radio1`} type="radio" onClick={this.cambioValoracion} name="estrellas" value={5} checked={u.valoracion === 5} readOnly={true} />
+                                            <label htmlFor={`${u.id}-radio1`}>★</label>
+                                            <input id={`${u.id}-radio2`} type="radio" onClick={this.cambioValoracion} name="estrellas" value={4} checked={u.valoracion === 4} readOnly={true} />
+                                            <label htmlFor={`${u.id}-radio2`}>★</label>
+                                            <input id={`${u.id}-radio3`} type="radio" onClick={this.cambioValoracion} name="estrellas" value={3} checked={u.valoracion === 3} readOnly={true} />
+                                            <label htmlFor={`${u.id}-radio3`}>★</label>
+                                            <input id={`${u.id}-radio4`} type="radio" onClick={this.cambioValoracion} name="estrellas" value={2} checked={u.valoracion === 2} readOnly={true} />
+                                            <label htmlFor={`${u.id}-radio4`}>★</label>
+                                            <input id={`${u.id}-radio5`} type="radio" onClick={this.cambioValoracion} name="estrellas" value={1} checked={u.valoracion === 1} readOnly={true} />
+                                            <label htmlFor={`${u.id}-radio5`}>★</label>
+                                        </p>
+                                    </form>
+                                </small>
+                            </div>
+                        </div>
                     ))}
-                </ul>
+                </div>
             </div>
         </div>;
     }
