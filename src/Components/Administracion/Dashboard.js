@@ -1,7 +1,8 @@
 import React from 'react';
-import { validarTexto, validarVacio, validarNumerico } from '../../Utils/Validaciones';
-import { insumosAPI } from '../../api';
-import '../ConjuntoCss/Register.css'
+import { insumosAPI, perfilAPI } from '../../api';
+import generatePDF from "../../Utils/pdfGenerator";
+import { validarNumerico, validarTexto, validarVacio } from '../../Utils/Validaciones';
+import '../ConjuntoCss/Register.css';
 
 
 class Dashboard extends React.Component {
@@ -131,13 +132,28 @@ class Dashboard extends React.Component {
         }
     };
 
+    generarReporte() {
+        perfilAPI.get(this.props.id).then((response) => {
+            if (response && response.nombre) {
+                const reporte = {};
+                reporte.encabezado = ["Codigo", "Material", "Tamaño", "Color", "Forma", "Cantidad", "Valor", "Referencia confección", "Detalles"];
+                reporte.listado = this.state.insumos;
+                reporte.titulo = "Reporte de insumos";
+                reporte.autor = response.nombre;
+                generatePDF(reporte);
+            } else {
+                this.setState({ error: true, errorCreacion: 'ocurrio un error generando el archivo' });
+            }
+        });
+    };
+
     crearInsumo() {
         insumosAPI.crear(this.state.insumo).then((response) => {
             response.codigo ?
                 this.cerrarModal() :
                 this.setState({ errorCreacion: 'Ocurrio un error creando el insumo, intente mas tarde' });
         });
-    }
+    };
 
     render() {
         return <div>
@@ -145,6 +161,15 @@ class Dashboard extends React.Component {
                 <div className='col container clearfix'>
                     <h2 className='float-left'>Inventario de insumos</h2>
                     <button className='btn btn-primary float-right' onClick={() => this.crearInsumoForm()}>+</button>
+                    {this.state.insumos ?
+                        <button className='btn btn-primary float-right' onClick={() => this.generarReporte()}><svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-file-earmark-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
+                            <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z" />
+                            <path d="M8 6a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 10.293V6.5A.5.5 0 0 1 8 6z" />
+                        </svg></button>
+                        :
+                        <div></div>
+                    }
                 </div>
                 <div className='col'>
                     <table className="table">

@@ -96,20 +96,32 @@ export const insumosAPI = {
     crear: async (insumo) => {
         try {
             const response = await fetch(`${urlBase}insumo/crear`,
-            {
-                method: 'POST',
-                body: JSON.stringify(insumo),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-        return response.json();
+                {
+                    method: 'POST',
+                    body: JSON.stringify(insumo),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+            return response.json();
         }
         catch (error) {
             console.error('Ocurrido un error creando el insumo', { error });
             return error ? error : {};
         }
     }
-}
+};
+
+export const perfilAPI = {
+    get: async (id) => {
+        try {
+            const response = await fetch(`${urlBase}perfil/${id}`);
+            return response.json();
+        } catch (error) {
+            console.log('Ocurrio un error obteniendo el perfil ' + id, { error });
+            return error ? error : {};
+        }
+    },
+};
 
 export default ofertasAPI;
