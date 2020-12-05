@@ -43,7 +43,7 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-        insumosAPI.all().then((response) => {
+        insumosAPI.allUser(this.props.id).then((response) => {
             this.setState({ insumos: response });
         });
     }
@@ -54,7 +54,7 @@ class Dashboard extends React.Component {
 
     cerrarModal() {
         this.setState({ crearInsumo: '', modalDisplay: 'none' });
-        insumosAPI.all().then((response) => {
+        insumosAPI.allUser(this.props.id).then((response) => {
             this.setState({ insumos: response });
         });
     }

@@ -66,6 +66,16 @@ export const insumosAPI = {
         };
         return [];
     },
+    allUser: async (id) => {
+        try {
+            const response = await fetch(`${urlBase}insumo/all/${id}`);
+            return response.json();
+        }
+        catch (error) {
+            console.error('Ocurrido un error consultando los insumos', { error });
+        };
+        return [];
+    },
     agotado: async () => {
         try {
             const response = await fetch(`${urlBase}insumo/agotado`);
