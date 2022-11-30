@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import '../ConjuntoCss/Register.css'
+import { GoogleLogin } from '@react-oauth/google';
 
 class Iniciar extends React.Component {
     constructor(props) {
@@ -95,6 +96,14 @@ class Iniciar extends React.Component {
                             <div style={{ padding: 10 }}>
                                 {this.state.error ? <span className='text-danger'>{this.state.mensaje}</span> : <div />}
                             </div>
+                            <GoogleLogin
+                                onSuccess={credentialResponse => {
+                                    console.log(credentialResponse);
+                                }}
+                                onError={() => {
+                                    console.log('Login Failed');
+                                }}
+                            />
                         </center>
                     </form>
 
@@ -109,7 +118,6 @@ class Iniciar extends React.Component {
                         </div>
                     </div>
                 </center>
-
             </div>
 
         );
