@@ -1,0 +1,62 @@
+.general{
+    display: flex;
+    justify-content: center;
+}
+
+.laders{
+  width:180px;
+}
+
+.laders3{
+  width:75px;
+}
+
+.Mensaje{
+  max-width: 420px;
+}
+
+.laders2{
+  width:100px;
+  SIZE:25;
+}
+
+.Tamaño{
+  width: 150px;
+}
+
+.Seleccion{
+  width: 260px;
+  height: 25px;
+}
+
+.form-control2 {
+  justify-self: center;
+  width: 250px;
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+}
+
+
+.NNN{
+  padding-bottom: 10px;
+}
+
+
+.Alets{
+  position: relative;
+  padding: .75rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+}
+
+.modal-body {
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
+}
