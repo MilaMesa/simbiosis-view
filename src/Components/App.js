@@ -4,6 +4,7 @@ import Header from "./Header";
 import HeaderUnLogin from './HeaderUnLogin';
 import Login from '../Components/Login/Login';
 import { Redirect } from 'react-router-dom';
+import { loginSimbiosisAppId, loginSimbiosisAppToken, loginSimbiosisAppUser,  } from "../constants";
 
 class App extends React.Component {
   constructor() {
@@ -12,16 +13,21 @@ class App extends React.Component {
       logged: false,
       id: null,
       userName: null,
+      token: null,
     }
   }
 
-  handleLogged(id, userName) {
+  handleLogged(id, userName, token) {
     this.setState({
       ...this.state,
       logged: !this.state.logged,
       id,
       userName,
+      token,
     });
+    window.localStorage.setItem(loginSimbiosisAppToken, token);
+    window.localStorage.setItem(loginSimbiosisAppId, id);
+    window.localStorage.setItem(loginSimbiosisAppUser, userName);
   }
 
   render() {
@@ -38,7 +44,7 @@ class App extends React.Component {
         <div>
           <Redirect push to="/" />
           <HeaderUnLogin></HeaderUnLogin>
-          <Login onLogged={(id, userName) => this.handleLogged(id, userName)} />
+          <Login onLogged={(id, userName, token) => this.handleLogged(id, userName, token)} />
         </div>
       );
     }

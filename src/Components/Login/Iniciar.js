@@ -98,7 +98,10 @@ class Iniciar extends React.Component {
                             </div>
                             <GoogleLogin
                                 onSuccess={credentialResponse => {
-                                    console.log(credentialResponse);
+                                    const token = credentialResponse.credential;
+                                    const decodeToken = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+                                    console.log(decodeToken);
+                                    this.props.onLogged(decodeToken.sub, decodeToken.email.split("@")[0], token);
                                 }}
                                 onError={() => {
                                     console.log('Login Failed');
