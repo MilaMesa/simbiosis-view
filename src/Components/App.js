@@ -4,7 +4,7 @@ import Header from "./Header";
 import HeaderUnLogin from './HeaderUnLogin';
 import Login from '../Components/Login/Login';
 import { Redirect } from 'react-router-dom';
-import { loginSimbiosisAppId, loginSimbiosisAppToken, loginSimbiosisAppUser,  } from "../constants";
+import { loginSimbiosisAppId, loginSimbiosisAppToken, loginSimbiosisAppUser, } from "../constants";
 
 class App extends React.Component {
   constructor() {
@@ -17,6 +17,21 @@ class App extends React.Component {
     }
   }
 
+  componentDidMount() {
+    const token = window.localStorage.getItem(loginSimbiosisAppToken);
+    const username = window.localStorage.getItem(loginSimbiosisAppUser);
+    const id = window.localStorage.getItem(loginSimbiosisAppId);
+    console.log(username, id);
+    if (token && username && id) {
+      console.log(token && username && id)
+      this.handleLogged(
+        id,
+        username,
+        token,
+      );
+    }
+  }
+
   handleLogged(id, userName, token) {
     this.setState({
       ...this.state,
@@ -25,9 +40,9 @@ class App extends React.Component {
       userName,
       token,
     });
-    window.localStorage.setItem(loginSimbiosisAppToken, token);
-    window.localStorage.setItem(loginSimbiosisAppId, id);
-    window.localStorage.setItem(loginSimbiosisAppUser, userName);
+    token ? window.localStorage.setItem(loginSimbiosisAppToken, token) : window.localStorage.removeItem(loginSimbiosisAppToken);
+    id ? window.localStorage.setItem(loginSimbiosisAppId, id) : window.localStorage.removeItem(loginSimbiosisAppId);
+    userName ? window.localStorage.setItem(loginSimbiosisAppUser, userName) : window.localStorage.removeItem(loginSimbiosisAppUser);
   }
 
   render() {
@@ -35,7 +50,7 @@ class App extends React.Component {
       return (
         <div>
           <Redirect push to="/" />
-          <Header onUnLogged={() => this.handleLogged(null, null)} id={this.state.id} userName={this.state.userName} />
+          <Header onUnLogged={() => this.handleLogged(null, null, null)} id={this.state.id} userName={this.state.userName} />
           <Main userName={this.state.userName} id={this.state.id} />
         </div>
       );
