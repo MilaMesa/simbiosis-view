@@ -3,6 +3,7 @@ import '../ConjuntoCss/Register.css'
 
 class CrearCuenta extends React.Component {
     constructor(props) {
+        super(props);
         this.state = {
             usuario: '',
             password: '',

@@ -23,8 +23,12 @@ class Comentarios extends React.Component {
     }
 
     obtenerComentarios() {
-        fetch(`${urlBase}comentarios/${this.state.usuarioId}`)
-            .then((response) => response.json())
+        fetch(`${urlBase}comentarios/${this.state.usuarioId}`, {
+            headers: new Headers({
+                'Authorization': window.localStorage.getItem(loginSimbiosisAppToken),
+                'Content-Type': 'application/json',
+            }),
+        }).then((response) => response.json())
             .then((response) => this.setState({ comentarios: response }))
             .catch(error => {
                 console.log("Ocurrio un error consultado los comentarios" + { error });
@@ -42,9 +46,10 @@ class Comentarios extends React.Component {
         fetch(`${urlBase}comentarios/crear`, {
             method: 'POST',
             body: JSON.stringify(comentario),
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: new Headers({
+                'Authorization': window.localStorage.getItem(loginSimbiosisAppToken),
+                'Content-Type': 'application/json',
+            })
         }).then((response) => response.json()).then((response) => {
             if (response.id) {
                 this.setState({ comentario: '' });
@@ -74,9 +79,10 @@ class Comentarios extends React.Component {
         fetch(`${urlBase}comentarios/valorar`, {
             method: 'POST',
             body: JSON.stringify({ id, valoracion: value }),
-            headers: {
+            headers: new Headers({
+                'Authorization': window.localStorage.getItem(loginSimbiosisAppToken),
                 'Content-Type': 'application/json',
-            }
+            })
         });
     }
 

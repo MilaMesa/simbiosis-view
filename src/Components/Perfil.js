@@ -184,9 +184,10 @@ class Perfil extends React.Component {
         fetch('http://localhost:8080/cuenta/actualizar', {
             method: 'POST',
             body: JSON.stringify(this.state.perfil),
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: new Headers({
+                'Authorization': window.localStorage.getItem(loginSimbiosisAppToken),
+                'Content-Type': 'application/json',
+            }),
         }).then((response) => response.json())
             .then((data) => {
                 let editar = this.state.editar;
