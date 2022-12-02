@@ -3,7 +3,6 @@ import '../ConjuntoCss/Register.css'
 
 class CrearCuenta extends React.Component {
     constructor(props) {
-        super(props);
         this.state = {
             usuario: '',
             password: '',
@@ -170,8 +169,7 @@ class CrearCuenta extends React.Component {
                 let errors = this.state.errors;
                 let mensaje = this.state.mensaje;
                 if (!data.error) {
-                    this.props.onLogged(data.numeroIdentificacion, this.state.usuario);
-                    console.log({ data });
+                    this.props.onLogged(data.numeroIdentificacion, this.state.usuario, data.token);
                 } else if (data.status === 409) {
                     errors.usuario = 'El usuario ya existe, por favor cambielo por uno nuevo';
                 } else if (data.status === 424) {

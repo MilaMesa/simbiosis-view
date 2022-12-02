@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import '../ConjuntoCss/Register.css'
-import { GoogleLogin } from '@react-oauth/google';
 
 class Iniciar extends React.Component {
     constructor(props) {
@@ -48,7 +47,7 @@ class Iniciar extends React.Component {
                             mensaje: 'Por favor revise el usuario y la contraseña'
                         })
                         :
-                        this.props.onLogged(data.numeroIdentificacion, this.state.usuario);
+                        this.props.onLogged(data.numeroIdentificacion, this.state.usuario, data.token);
                 },
                 (error) => {
                     this.setState({
@@ -96,17 +95,6 @@ class Iniciar extends React.Component {
                             <div style={{ padding: 10 }}>
                                 {this.state.error ? <span className='text-danger'>{this.state.mensaje}</span> : <div />}
                             </div>
-                            <GoogleLogin
-                                onSuccess={credentialResponse => {
-                                    const token = credentialResponse.credential;
-                                    const decodeToken = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
-                                    console.log(decodeToken);
-                                    this.props.onLogged(decodeToken.sub, decodeToken.email.split("@")[0], token);
-                                }}
-                                onError={() => {
-                                    console.log('Login Failed');
-                                }}
-                            />
                         </center>
                     </form>
 

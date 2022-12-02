@@ -1,6 +1,7 @@
 import React from 'react';
 import NotFound from './NotFound';
 import Comentarios from './Comentarios';
+import { loginSimbiosisAppToken } from '../constants';
 //import './ConjuntoCss/Register.css'
 
 class Perfil extends React.Component {
@@ -42,7 +43,11 @@ class Perfil extends React.Component {
     };
 
     componentDidMount() {
-        fetch("http://localhost:8080/perfil/" + this.state.perfil.numeroIdentificacion)
+        fetch("http://localhost:8080/perfil/" + this.state.perfil.numeroIdentificacion, {
+            headers: new Headers({
+                'Authorization': window.localStorage.getItem(loginSimbiosisAppToken),
+            }),
+        })
             .then(async response => {
                 const data = await response.json();
                 let notFound = this.state.notFound;
@@ -159,7 +164,7 @@ class Perfil extends React.Component {
     }
 
     validarVacio(value) {
-        return value.length > 0 ? '' :+ 'El campo no debe estar vacio.\n';
+        return value.length > 0 ? '' : + 'El campo no debe estar vacio.\n';
     }
 
     validarCorreo(value) {
@@ -225,7 +230,7 @@ class Perfil extends React.Component {
         return (
             this.state.perfil.tipoIdentificacion ?
                 <div className='container text-center asd'>
-                        <img className='Tamaño ' src='../../ImagenesD/UsuarioM.png'></img>
+                    <img className='Tamaño ' src='../../ImagenesD/UsuarioM.png'></img>
                     {this.state.miPerfil ? this.state.editar ? <h2 className='text-center'>Editar Perfil</h2> : <h2 className='text-center'>Mi Perfil</h2> : <h2>{this.state.perfil.usuario}</h2>}
                     <div className="general">
 
@@ -326,10 +331,10 @@ class Perfil extends React.Component {
                                         <div><span className='text-danger'>{this.state.errors.newPassword}</span><br /></div> :
                                         <small className='form-text text-muted'>Deje este campo vacio si no desea cambiar la contraseña</small>}
 
-                                        <center>
-                                    <button className='btn btn-primary' disabled={this.state.error}>Actualizar</button>
+                                    <center>
+                                        <button className='btn btn-primary' disabled={this.state.error}>Actualizar</button>
                                     </center>
-                                   {this.state.errorMessage ? <div><span className='danger'>{this.state.errorMessage}</span></div> : <div />}
+                                    {this.state.errorMessage ? <div><span className='danger'>{this.state.errorMessage}</span></div> : <div />}
                                 </div>
                                 :
                                 <div></div>

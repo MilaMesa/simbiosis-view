@@ -1,10 +1,17 @@
-export const urlBase = 'http://localhost:8080/'
+import { loginSimbiosisAppToken } from "./constants";
+
+export const urlBase = 'http://localhost:8080/';
 
 const ofertasAPI = {
     all: async () => {
         try {
-            const response = await fetch(`${urlBase}oferta/all`);
-            return response.json();
+            const response = await fetch(`${urlBase}oferta/all`, {
+                method: 'GET',
+                headers: new Headers({
+                    'Authorization': window.localStorage.getItem(loginSimbiosisAppToken)
+                })
+            });
+            return response ? response.json() : [];
         }
         catch (error) {
             console.error('Ocurrio un error consultado las ofertas!', { error });
@@ -16,9 +23,10 @@ const ofertasAPI = {
             const response = await fetch(`${urlBase}oferta/crear`, {
                 method: 'POST',
                 body: JSON.stringify(oferta),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                headers: new Headers({
+                    'Authorization': window.localStorage.getItem(loginSimbiosisAppToken),
+                    'Content-Type': 'application/json',
+                })
             });
             return response.json();
         }
@@ -29,7 +37,11 @@ const ofertasAPI = {
     },
     get: async (id) => {
         try {
-            const response = await fetch(`${urlBase}oferta/${id}`);
+            const response = await fetch(`${urlBase}oferta/${id}`, {
+                headers: new Headers({
+                    'Authorization': window.localStorage.getItem(loginSimbiosisAppToken)
+                })
+            });
             return response.json();
         }
         catch (error) {
@@ -42,9 +54,10 @@ const ofertasAPI = {
             const response = await fetch(`${urlBase}oferta/eliminar/${id}`, {
                 method: 'POST',
                 body: '',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                headers: new Headers({
+                    'Authorization': window.localStorage.getItem(loginSimbiosisAppToken),
+                    'Content-Type': 'application/json',
+                })
             });
             return response;
         }
@@ -58,7 +71,11 @@ const ofertasAPI = {
 export const insumosAPI = {
     all: async () => {
         try {
-            const response = await fetch(`${urlBase}insumo/all`);
+            const response = await fetch(`${urlBase}insumo/all`, {
+                headers: new Headers({
+                    'Authorization': window.localStorage.getItem(loginSimbiosisAppToken)
+                })
+            });
             return response.json();
         }
         catch (error) {
@@ -68,7 +85,12 @@ export const insumosAPI = {
     },
     allUser: async (id) => {
         try {
-            const response = await fetch(`${urlBase}insumo/all/${id}`);
+            const response = await fetch(`${urlBase}insumo/all/${id}`, {
+                method: 'GET',
+                headers: new Headers({
+                    'Authorization': window.localStorage.getItem(loginSimbiosisAppToken)
+                })
+            });
             return response.json();
         }
         catch (error) {
@@ -78,7 +100,11 @@ export const insumosAPI = {
     },
     agotado: async () => {
         try {
-            const response = await fetch(`${urlBase}insumo/agotado`);
+            const response = await fetch(`${urlBase}insumo/agotado`, {
+                headers: new Headers({
+                    'Authorization': window.localStorage.getItem(loginSimbiosisAppToken)
+                })
+            });
             return response.json();
         }
         catch (error) {
@@ -92,9 +118,10 @@ export const insumosAPI = {
                 {
                     method: 'POST',
                     body: '',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    headers: new Headers({
+                        'Authorization': window.localStorage.getItem(loginSimbiosisAppToken),
+                        'Content-Type': 'application/json',
+                    })
                 });
             return response.json();
         }
@@ -109,9 +136,10 @@ export const insumosAPI = {
                 {
                     method: 'POST',
                     body: JSON.stringify(insumo),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    headers: new Headers({
+                        'Authorization': window.localStorage.getItem(loginSimbiosisAppToken),
+                         'Content-Type': 'application/json',
+                    })
                 });
             return response.json();
         }
@@ -125,7 +153,11 @@ export const insumosAPI = {
 export const perfilAPI = {
     get: async (id) => {
         try {
-            const response = await fetch(`${urlBase}perfil/${id}`);
+            const response = await fetch(`${urlBase}perfil/${id}`, {
+                headers: new Headers({
+                    'Authorization': window.localStorage.getItem(loginSimbiosisAppToken)
+                })
+            });
             return response.json();
         } catch (error) {
             console.log('Ocurrio un error obteniendo el perfil ' + id, { error });
